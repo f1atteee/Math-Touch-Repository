@@ -1,0 +1,123 @@
+@import "../../styles/vars";
+
+.loginWrapper {
+    min-height: 67vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 30px;
+    background: transparent;
+
+    /* Додаємо зображення і градієнт */
+    background: 
+        linear-gradient(to bottom, rgba(0, 128, 0, 0.1) 0%, rgba(0, 128, 0, 0.5) 100%), /* Градієнт */
+        url("../../assets/img/main-background.png"); /* Зображення на фоні */
+
+    background-size: cover; /* Розтягнути зображення на весь екран */
+    background-repeat: no-repeat; /* Не повторювати фон */
+    background-position: center; /* Центрувати фон */
+
+    height: 100vh;
+}
+
+.Login {
+    width: 560px;
+    background: rgba( 255, 255, 255, 0.15 );
+    box-shadow: 0 8px 32px 0 rgba(43, 70, 52, 0.37);
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 10px;
+    position: relative;
+}
+
+button.btn {
+    background-color: #222222;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 30px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+.formTitle{
+    font-size: 30px;
+    color: #000000;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.form-group input {
+    width: 100%;
+    position: relative;
+    background-color: transparent;
+    border: 2px solid $greenColor;
+    border-radius: 2px;
+    height: 45px;
+    margin: 10px 0;
+}
+label.form-label {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 50px 0;
+    }
+    .Login form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+  .Login {
+    padding: 40px 40px;
+    }   
+    .loginWrapper {
+        min-height: 55vh;
+    }
+}
+
+.buttonLogin{
+    background-color: $darkBackColor;
+    border-radius: 10px;
+    color: $white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-block;
+    line-height: 1.5;
+    transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
+  
+    &:hover {
+      background-color: lighten($greenColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
+    }
+}
+
+.registerLink {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.registerLink .btn-link {
+    color: $lightBackColor; // або інший колір, який ви хочете
+    text-decoration: none;
+    font-size: 16px;
+
+    &:hover {
+        color: lighten($lightBackColor, 20%);
+        text-decoration: underline;
+    }
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: center; /* Центрує зображення по горизонталі */
+    align-items: center; /* Центрує зображення по вертикалі (якщо потрібно) */
+    height: 100%; /* Висота контейнера (можна змінити відповідно до ваших потреб) */
+}

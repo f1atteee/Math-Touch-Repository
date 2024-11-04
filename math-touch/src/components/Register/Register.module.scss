@@ -1,0 +1,34 @@
+@import "../../styles/vars";
+
+.registerLink {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.registerLink .btn-link {
+    color: $lightBackColor; // або інший колір, який ви хочете
+    text-decoration: none;
+    font-size: 16px;
+
+    &:hover {
+        color: lighten($lightBackColor, 20%);
+        text-decoration: underline;
+    }
+}
+
+.buttonLogin{
+    margin-top: 10px;
+    background-color: $lightBackColor;
+    border-radius: 10px;
+    color: $white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-block;
+    line-height: 1.5;
+    transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
+  
+    &:hover {
+      background-color: lighten($lightBackColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
+    }
+}

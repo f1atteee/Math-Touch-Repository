@@ -1,0 +1,50 @@
+@import '/src/styles/vars';
+
+.footer {
+    overflow-x: hidden !important;
+    background-color: $darkBackColor;
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    height: 80px;
+}
+.copywright {
+    text-align: center;
+    color: $white;
+    font-size: 9rem;
+}
+
+.body {
+    z-index: 1;
+    text-align: center;
+}
+
+@media (max-width: 1233px) {
+    .copywright {
+        text-align: center;
+    }
+
+    .body {
+        text-align: center;
+    }
+}
+
+.h3 {
+    font-size: 10px;
+    color: $whiteMainTextColor;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.icons {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0;
+    color: $whiteMainTextColor;
+    list-style-type: none;
+    
+}
+
+.blockquote-footer {
+    color: $lightBackColor;
+}

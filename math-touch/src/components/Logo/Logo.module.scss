@@ -1,0 +1,22 @@
+@import "../../styles/vars";
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: Arial, sans-serif;
+  }
+  
+  .math {
+    font-size: 4rem;
+    font-weight: bold;
+    color: $darkBackColor;
+  }
+  
+  .touch {
+    font-size: 1.5rem;
+    padding-bottom: 0.1rem;
+    color: $darkBackColor;
+    margin-bottom: 1rem; // Зменшити відстань між текстами
+  }
+  

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\AnyRe.Users.Api.props" />
+</Project>

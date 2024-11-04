@@ -1,0 +1,16 @@
+D:\react-files\Math.Users.Api\Math.Users.BLL\bin\Debug\net8.0\Math.Users.BLL.deps.json
+D:\react-files\Math.Users.Api\Math.Users.BLL\bin\Debug\net8.0\Math.Users.BLL.dll
+D:\react-files\Math.Users.Api\Math.Users.BLL\bin\Debug\net8.0\Math.Users.BLL.pdb
+D:\react-files\Math.Users.Api\Math.Users.BLL\bin\Debug\net8.0\Math.Users.DAL.dll
+D:\react-files\Math.Users.Api\Math.Users.BLL\bin\Debug\net8.0\Math.Users.DAL.pdb
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.csproj.AssemblyReference.cache
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.AssemblyInfoInputs.cache
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.AssemblyInfo.cs
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.csproj.CoreCompileInputs.cache
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.sourcelink.json
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.csproj.CopyComplete
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.dll
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\refint\Math.Users.BLL.dll
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\Math.Users.BLL.pdb
+D:\react-files\Math.Users.Api\Math.Users.BLL\obj\Debug\net8.0\ref\Math.Users.BLL.dll

@@ -1,0 +1,102 @@
+@import "../../styles/vars";
+
+.wave {
+    animation-name: wave_animation; /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.1s; /* Change to speed up or slow down */
+    animation-iteration-count: infinite; /* Never stop waving :) */
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    display: inline-block;
+}
+  
+@keyframes wave_animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    } 
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.home_section {
+position: relative;
+z-index: -1;
+background-color: $whiteMainTextColor;
+background-position: top center;
+background-repeat: no-repeat;
+padding-bottom: 30px;
+padding-top: 30px;
+}
+
+.home_content {
+padding: 9rem 0 2rem;
+color: $backMainTextColor;
+text-align: left;
+}
+
+.heading {
+font-size: 2.4em;
+padding-left: 5px;
+}
+
+.heading_name {
+font-size: 2.5em;
+}
+
+.main_name {
+    color: $darkBackColor;
+}
+
+.img_fluid {
+    padding-top: 30px;
+    max-width: 300px;
+}
+
+.hireButton {
+    background-color: $darkBackColor;
+    color: $white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    position: relative;
+    z-index: 1; /* Забезпечує, що кнопки знаходяться над іншими елементами */
+    pointer-events: auto; 
+}
+
+.hireButton:hover {
+    background-color: $lightBackColor;
+    color: $backMainTextColor;
+    transform: scale(1.05);
+}
+
+
+.exploreButton {
+    margin-left: 10px;
+    position: relative;
+    z-index: 1; /* Забезпечує, що кнопки знаходяться над іншими елементами */
+    pointer-events: auto; 
+}
+
+.home_page_two {
+    padding-top: 250px;
+}
+
+.green{
+    color: $greenColor;
+}
