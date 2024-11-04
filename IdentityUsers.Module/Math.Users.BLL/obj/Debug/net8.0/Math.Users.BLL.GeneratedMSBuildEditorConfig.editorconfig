@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Math.Users.BLL
-build_property.ProjectDir = D:\react-files\Math.Users.Api\Math.Users.BLL\
+build_property.ProjectDir = D:\Math-Touch\IdentityUsers.Module\Math.Users.BLL\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

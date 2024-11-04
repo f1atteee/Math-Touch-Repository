@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tSc18nAEEdHP+JDIh2NPwDqTDMKG0fg0mHZVOk696rPZe2dNDzt7qztzSu0LyeyFmYc7aBCs8cAIlfx4OSzAPA==",
+  "dgSpecHash": "fzybAHalnwzdzPUJpOIMOV+5nly3jq2d7ni1GbQ5HdEpVdxTG6VL1JsD8CKjbgWFoe0+b/6yxd82gizURongEw==",
   "success": true,
-  "projectFilePath": "D:\\react-files\\Math.Users.Api\\Math.Users.Api\\Math.Users.Api.csproj",
+  "projectFilePath": "D:\\Math-Touch\\IdentityUsers.Module\\Math.Users.Api\\Math.Users.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nakravets\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
@@ -51,6 +51,8 @@
     "C:\\Users\\nakravets\\.nuget\\packages\\nlog\\5.3.3\\nlog.5.3.3.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\nlog.database\\5.3.3\\nlog.database.5.3.3.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\nlog.extensions.logging\\5.3.12\\nlog.extensions.logging.5.3.12.nupkg.sha512",
+    "C:\\Users\\nakravets\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
+    "C:\\Users\\nakravets\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

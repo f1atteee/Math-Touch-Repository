@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iO2lQ1vONMt92Qc7u7kVpxgeOoKZzh2koism7dNJcSiS9VFdnuEKjPIJPUEpsh4t7YCR4CDJ0Zjc2X9oEwiMqg==",
+  "dgSpecHash": "kRzzfXSEmyyhGnUGVjWb8mto12BG551W65DJA3luds+gPt22w4UftTk1RhQycWp7wuh9Oyr4GBwAd4D9R2WwuQ==",
   "success": true,
-  "projectFilePath": "D:\\react-files\\Math.Users.Api\\Math.Users.DAL\\Math.Users.DAL.csproj",
+  "projectFilePath": "D:\\Math-Touch\\IdentityUsers.Module\\Math.Users.DAL\\Math.Users.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nakravets\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -47,6 +47,8 @@
     "C:\\Users\\nakravets\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\nakravets\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
+    "C:\\Users\\nakravets\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\nakravets\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

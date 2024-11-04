@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Math.Users.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62bc45e9eb751becf8ab72e40bfcd52525a24ce0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15a760af6314b01094fb256a44dc0d5d5d35be85")]
 [assembly: System.Reflection.AssemblyProductAttribute("Math.Users.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Math.Users.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
