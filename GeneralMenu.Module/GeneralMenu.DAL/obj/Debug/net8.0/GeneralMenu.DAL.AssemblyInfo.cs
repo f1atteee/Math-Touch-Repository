@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeneralMenu.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9924716811bba07264b302c5705dedb3a4392009")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeneralMenu.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeneralMenu.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
