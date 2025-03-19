@@ -30,7 +30,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
         const hashedPassword = await hashPassword();
 
         try {
-            const response = await fetch('https://localhost:7007/api/User/Create', {
+            const response = await fetch('http://localhost:8081/api/User/Create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
