@@ -1,79 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-interface GeometryDataProps {
-    data: {
-        info: string;
-        definition: string;
-    };
+interface GeometryData {
+  info: string;
+  definition: string;
 }
 
-const GeometryData: React.FC = () => {
-    const { id } = useParams(); // Отримуємо параметр id з URL
-    const [data, setData] = useState<GeometryDataProps['data'] | null>(null); // Стан для зберігання даних
-    const [loading, setLoading] = useState<boolean>(true); // Стан для відображення процесу завантаження
-    const [error, setError] = useState<string | null>(null); // Стан для відображення помилки
+const GeometryDataComponent: React.FC = () => {
+  const { id } = useParams<{ id: string }>(); // Отримуємо параметр id з URL
+  const [data, setData] = useState<GeometryData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-    // Використовуємо useEffect для виклику API при монтуванні компоненти
-    useEffect(() => {
-        const fetchData = async () => {
-            const token = localStorage.getItem('access_token'); // Отримуємо токен з localStorage
+  const parsedId = useMemo(() => (id ? Number(id) : null), [id]);
 
-            if (!token) {
-                setError('Токен не знайдений');
-                setLoading(false);
-                return;
-            }
-
-            try {
-                const response = await axios.post(
-                    'http://192.168.31.90:8082/api/Geometry/GetGeometryDataById',
-                    [id], // Передаємо id у форматі масиву
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`, // Додаємо токен до заголовків
-                            'Content-Type': 'application/json', // Вказуємо формат контенту
-                            'Accept': 'text/plain', // Вказуємо тип відповіді
-                        }
-                    }
-                );
-                setData(response.data); // Записуємо отримані дані в стан
-            } catch (error) {
-                setError('Помилка при завантаженні даних'); // Обробка помилки
-            } finally {
-                setLoading(false); // Завершення завантаження
-            }
-        };
-
-        fetchData(); // Викликаємо функцію для отримання даних
-    }, [id]); // Залежність від id для повторного виклику при зміні id
-
-    if (loading) {
-        return <div>Loading...</div>; // Відображення індикатора завантаження
+  const fetchData = useCallback(async () => {
+    if (parsedId === null) {
+      setError("Невірний ID");
+      setLoading(false);
+      return;
     }
 
-    if (error) {
-        return <div>{error}</div>; // Відображення повідомлення про помилку
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      setError("Токен не знайдено");
+      setLoading(false);
+      return;
     }
 
-    if (!data) {
-        return <div>Data not found</div>; // Якщо дані не знайдені
-    }
+    try {
+      console.log("ID для запиту:", parsedId);
 
-    return (
-        <div>
-            <h1>Geometry Data</h1>
-            <div>
-                <h2>Info</h2>
-                <p>{data.info}</p>
-            </div>
-            <div>
-                <h2>Definition</h2>
-                <p>{data.definition}</p>
-            </div>
-        </div>
-    );
+      const response = await axios.post(
+        "http://192.168.31.90:8082/api/Geometry/GetGeometryDataById",
+        [parsedId],
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "text/plain",
+          },
+        }
+      );
+
+      console.log("Відповідь сервера:", response.data);
+
+      // Оскільки відповідь сервера — це масив, беремо перший елемент
+      const geometryData = response.data[0];
+
+      // Якщо дані існують, оновлюємо стейт
+      if (geometryData) {
+        setData({
+          info: geometryData.info || "Інформація не надана",
+          definition: geometryData.definition || "Визначення не надано",
+        });
+      } else {
+        setError("Дані не знайдено");
+      }
+    } catch (err: any) {
+      console.error("Помилка при завантаженні:", err);
+      setError(
+        err.response?.data?.message || "Не вдалося завантажити дані"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [parsedId]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return (
+    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+      <h1>Geometry Data</h1>
+      {loading && <p>Завантаження...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {data ? (
+        <>
+          <div>
+            <h2>Info</h2>
+            <p>{data.info}</p>
+          </div>
+          <div>
+            <h2>Definition</h2>
+            <p>{data.definition}</p>
+          </div>
+        </>
+      ) : (
+        <p>Дані не доступні</p>
+      )}
+    </div>
+  );
 };
 
-export default GeometryData;
+export default GeometryDataComponent;

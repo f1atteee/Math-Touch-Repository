@@ -33,9 +33,6 @@ function NavBar() {
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
-
-
-
     return () => {
       window.removeEventListener("scroll", scrollHandler);
     };
@@ -52,12 +49,12 @@ function NavBar() {
   const fetchGeometryData = async () => {
     try {
       const token = localStorage.getItem("access_token"); // Отримуємо токен
-  
+
       if (!token) {
         console.error("Токен не знайдено!");
         return;
       }
-  
+
       const response = await fetch(
         "http://192.168.31.90:8082/api/Section/GetSectionByTypeMath?typeMath=2",
         {
@@ -70,35 +67,36 @@ function NavBar() {
           body: JSON.stringify({}), // API вимагає body, тому передаємо порожній об'єкт
         }
       );
-  
+
       if (!response.ok) {
         throw new Error(`HTTP помилка! Статус: ${response.status}`);
       }
-  
+
       const rawData = await response.json();
       console.log(rawData);
-  
+
       // Перетворення отриманих даних у формат MenuItem
       const formattedData: MenuItem[] = rawData.map((item: any) => ({
+        id: item.idOrder, // Додай ID
         name: item.name,
-        link: `/geometry/${item.idOrder}`, // Можна змінити формат посилання
+        link: `/geometry/${item.idOrder}`, // Використовуємо idOrder для коректного маршруту
       }));
-  
+
       setGeometryMenu(formattedData);
     } catch (error) {
       console.error("Помилка завантаження геометричних даних:", error);
     }
   };
-  
+
   const fetchAlgebraData = async () => {
     try {
       const token = localStorage.getItem("access_token"); // Отримуємо токен
-  
+
       if (!token) {
         console.error("Токен не знайдено!");
         return;
       }
-  
+
       const response = await fetch(
         "http://192.168.31.90:8082/api/Section/GetSectionByTypeMath?typeMath=1",
         {
@@ -111,23 +109,24 @@ function NavBar() {
           body: JSON.stringify({}), // API вимагає body, тому передаємо порожній об'єкт
         }
       );
-  
+
       if (!response.ok) {
         throw new Error(`HTTP помилка! Статус: ${response.status}`);
       }
-  
+
       const rawData = await response.json();
       console.log(rawData);
-  
+
       // Перетворення отриманих даних у формат MenuItem
       const formattedData: MenuItem[] = rawData.map((item: any) => ({
+        id: item.idOrder, // Додай ID
         name: item.name,
-        link: `/algebra/${item.idOrder}`, // Можна змінити формат посилання
+        link: `/algebra/${item.idOrder}`, // Використовуємо idOrder для коректного маршруту
       }));
-  
+
       setAlgebraMenu(formattedData);
     } catch (error) {
-      console.error("Помилка завантаження геометричних даних:", error);
+      console.error("Помилка завантаження алгебраїчних даних:", error);
     }
   };
 
@@ -153,68 +152,73 @@ function NavBar() {
       </Navbar.Toggle>
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav defaultActiveKey="#home">
-        <Nav.Item
-          style={{ marginLeft: "1em", position: "relative" }}
-          onMouseEnter={() => {
-            setShowDropdownAlgebra(true);
-            fetchAlgebraData(); // Запит виконується при наведенні
-          }}
-          onMouseLeave={() => setShowDropdownAlgebra(false)}
-        >
-          <Nav.Link as={Link} to="/algebra" onClick={() => updateExpanded(false)}>
-            <GoGraph style={{ marginBottom: "2px" }} /> Алгебра
-          </Nav.Link>
+          {/* Алгебра */}
+          <Nav.Item
+            style={{ marginLeft: "1em", position: "relative" }}
+            onMouseEnter={() => {
+              setShowDropdownAlgebra(true);
+              fetchAlgebraData(); // Запит виконується при наведенні
+            }}
+            onMouseLeave={() => setShowDropdownAlgebra(false)}
+          >
+            <Nav.Link as={Link} to="/algebra" onClick={() => updateExpanded(false)}>
+              <GoGraph style={{ marginBottom: "2px" }} /> Алгебра
+            </Nav.Link>
 
-          {showDropdownAlgebra && (
-            <div className={s.dropdownMenu}>
-              {algebraMenu.map((item, index) => (
-                <Link
-                  key={index}
-                  to={`/algebra/${item.id}`} // Передаємо id для маршруту
-                  className={s.dropdownMenuItem}
-                  onClick={() => updateExpanded(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          )}
-        </Nav.Item>
+            {showDropdownAlgebra && (
+              <div className={s.dropdownMenu}>
+                {algebraMenu.length > 0 ? (
+                  algebraMenu.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={item.link} // Використовуємо згенероване посилання
+                      className={s.dropdownMenuItem}
+                      onClick={() => updateExpanded(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))
+                ) : (
+                  <div className={s.dropdownMenuItem}>Завантаження...</div>
+                )}
+              </div>
+            )}
+          </Nav.Item>
 
+          {/* Геометрія */}
+          <Nav.Item
+            style={{ marginLeft: "1em", position: "relative" }}
+            onMouseEnter={() => {
+              setShowDropdownGeometry(true);
+              fetchGeometryData(); // Запит виконується при наведенні
+            }}
+            onMouseLeave={() => setShowDropdownGeometry(false)}
+          >
+            <Nav.Link as={Link} to="/geometry" onClick={() => updateExpanded(false)}>
+              <PiCubeTransparentLight style={{ marginBottom: "2px" }} /> Геометрія
+            </Nav.Link>
 
-        <Nav.Item
-          style={{ marginLeft: "1em", position: "relative" }}
-          onMouseEnter={() => {
-            setShowDropdownGeometry(true);
-            fetchGeometryData(); // Запит виконується при наведенні
-          }}
-          onMouseLeave={() => setShowDropdownGeometry(false)}
-        >
-          <Nav.Link as={Link} to="/geometry" onClick={() => updateExpanded(false)}>
-            <PiCubeTransparentLight style={{ marginBottom: "2px" }} /> Геометрія
-          </Nav.Link>
+            {showDropdownGeometry && (
+              <div className={s.dropdownMenu}>
+                {geometryMenu.length > 0 ? (
+                  geometryMenu.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={item.link} // Використовуємо згенероване посилання
+                      className={s.dropdownMenuItem}
+                      onClick={() => updateExpanded(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))
+                ) : (
+                  <div className={s.dropdownMenuItem}>Завантаження...</div>
+                )}
+              </div>
+            )}
+          </Nav.Item>
 
-          {showDropdownGeometry && (
-            <div className={s.dropdownMenu}>
-              {geometryMenu.length > 0 ? (
-                geometryMenu.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={`/geometry/${item.id}`} // Передаємо id для маршруту
-                    className={s.dropdownMenuItem}
-                    onClick={() => updateExpanded(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))
-              ) : (
-                <div className={s.dropdownMenuItem}>Завантаження...</div>
-              )}
-            </div>
-          )}
-        </Nav.Item>
-
-
+          {/* Інші пункти меню */}
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to={lastyear} onClick={() => updateExpanded(false)}>
               <MdVideogameAsset style={{ marginBottom: "2px" }} /> Минулорічні НМТ
