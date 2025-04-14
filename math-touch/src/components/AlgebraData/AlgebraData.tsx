@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./AlgebraData.module.scss";
 
 interface AlgebraData {
   info: string;
@@ -8,7 +9,7 @@ interface AlgebraData {
 }
 
 const AlgebraDataComponent: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Отримуємо параметр id з URL
+  const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<AlgebraData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,11 +31,9 @@ const AlgebraDataComponent: React.FC = () => {
     }
 
     try {
-      console.log("ID для запиту:", parsedId);
-
       const response = await axios.post(
-        "http://localhost:5176/api/Algebra/GetAlgebraDataById", // Ваш API для algebra
-        [parsedId], // Масив з ID
+        "http://192.168.31.91:8082/api/Algebra/GetAlgebraDataById",
+        [parsedId],
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,25 +43,20 @@ const AlgebraDataComponent: React.FC = () => {
         }
       );
 
-      console.log("Відповідь сервера:", response.data);
-
-      // Оскільки відповідь сервера — це масив, беремо перший елемент
       const algebraData = response.data[0];
 
-      // Якщо дані існують, оновлюємо стейт
-      if (algebraData) {
-        setData({
-          info: algebraData.info || "Інформація не надана",
-          definition: algebraData.definition || "Визначення не надано",
-        });
-      } else {
+      if (!algebraData) {
         setError("Дані не знайдено");
+        setLoading(false);
+        return;
       }
+
+      const info = algebraData.info || "Інформація не надана";
+      const definition = algebraData.definition || "Визначення не надано";
+      setData({ info, definition });
     } catch (err: any) {
       console.error("Помилка при завантаженні:", err);
-      setError(
-        err.response?.data?.message || "Не вдалося завантажити дані"
-      );
+      setError(err.response?.data?.message || "Не вдалося завантажити дані");
     } finally {
       setLoading(false);
     }
@@ -73,10 +67,10 @@ const AlgebraDataComponent: React.FC = () => {
   }, [fetchData]);
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+    <div className="algebra-data-container">
       <h1>Algebra Data</h1>
-      {loading && <p>Завантаження...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <p className="loading">Завантаження...</p>}
+      {error && <p className="error">{error}</p>}
       {data ? (
         <>
           <div>
@@ -89,7 +83,7 @@ const AlgebraDataComponent: React.FC = () => {
           </div>
         </>
       ) : (
-        <p>Дані не доступні</p>
+        <p className="no-data">Дані не доступні</p>
       )}
     </div>
   );

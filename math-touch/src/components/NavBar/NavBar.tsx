@@ -23,6 +23,7 @@ function NavBar() {
   const [geometryMenu, setGeometryMenu] = useState<MenuItem[]>([]);
   const [showDropdownGeometry, setShowDropdownGeometry] = useState(false);
   const [showDropdownAlgebra, setShowDropdownAlgebra] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const lastyear = "https://zno.osvita.ua/mathematics/";
@@ -36,6 +37,42 @@ function NavBar() {
     return () => {
       window.removeEventListener("scroll", scrollHandler);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem("user");
+      const token = localStorage.getItem("access_token");
+
+      if (!userId || !token) {
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `http://192.168.31.91:8081/api/User/GetById?id=${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "accept": "text/plain",
+              "Authorization": `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const userData = await response.json();
+        console.log(userData);
+        console.log(userData.userName);
+        setUserName(userData.userName);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   function scrollHandler() {
@@ -56,7 +93,7 @@ function NavBar() {
       }
 
       const response = await fetch(
-        "http://192.168.31.90:8082/api/Section/GetSectionByTypeMath?typeMath=2",
+        "http://192.168.31.91:8082/api/Section/GetSectionByTypeMath?typeMath=2",
         {
           method: "POST",
           headers: {
@@ -98,7 +135,7 @@ function NavBar() {
       }
 
       const response = await fetch(
-        "http://192.168.31.90:8082/api/Section/GetSectionByTypeMath?typeMath=1",
+        "http://192.168.31.91:8082/api/Section/GetSectionByTypeMath?typeMath=1",
         {
           method: "POST",
           headers: {
@@ -242,12 +279,9 @@ function NavBar() {
               <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
             </Nav.Link>
           </Nav.Item>
-
-          <div className={s.login_div}>
-            <button className={s.login_button} onClick={handleLoginClick}>
-              Login
-            </button>
-          </div>
+            <div className={s.login_div}>
+              Привіт, {userName}
+            </div>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
