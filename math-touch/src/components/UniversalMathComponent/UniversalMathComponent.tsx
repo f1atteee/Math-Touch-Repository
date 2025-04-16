@@ -1,23 +1,39 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { renderTextWithImages } from "../../utils/render/RenderTextWithImages";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+import { renderTextWithImages } from "../../utils/render/RenderTextWithImages";
+import s from "./UniversalMathComponent.module.scss";
 
-interface GeometryData {
+interface MathData {
   info: string;
   definition: string;
-  images?: { id: number; data: string }[];
+  images?: { id: number; data: string }[]; // Тільки для Геометрії
 }
 
-const GeometryDataComponent: React.FC = () => {
+interface UniversalMathComponentProps {
+  typeMath: number; // 1 для Алгебри, 2 для Геометрії
+  fetchUrl: string; // URL для основного запиту
+  fetchImagesUrl?: string; // URL для запиту зображень (тільки для Геометрії)
+}
+
+const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
+  typeMath,
+  fetchUrl,
+  fetchImagesUrl,
+}) => {
   const { id } = useParams<{ id: string }>();
-  const [data, setData] = useState<GeometryData | null>(null);
+  const location = useLocation();
+  const { topicName } = location.state || {}; // Отримуємо назву підтеми
+
+  const [data, setData] = useState<MathData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const parsedId = useMemo(() => (id ? Number(id) : null), [id]);
 
   const fetchImages = useCallback(async (themeId: number) => {
+    if (!fetchImagesUrl) return []; // Якщо URL для зображень не заданий, повертаємо порожній масив
+
     try {
       const token = localStorage.getItem("access_token");
       if (!token) {
@@ -27,7 +43,7 @@ const GeometryDataComponent: React.FC = () => {
       }
 
       const response = await axios.post(
-        `http://192.168.31.91:8082/api/Image/GetImagesForThem?typeMath=2&idThem=${themeId}`,
+        `${fetchImagesUrl}?typeMath=${typeMath}&idThem=${themeId}`,
         null,
         {
           headers: {
@@ -42,12 +58,12 @@ const GeometryDataComponent: React.FC = () => {
         data: img.data && img.data.startsWith("data:")
           ? img.data
           : `data:image/jpeg;base64,${img.data}`,
-      }));      
+      }));
     } catch (err) {
       console.error("Помилка при завантаженні зображень:", err);
       return [];
     }
-  }, []);
+  }, [fetchImagesUrl, typeMath]);
 
   const fetchData = useCallback(async () => {
     if (parsedId === null) {
@@ -65,7 +81,7 @@ const GeometryDataComponent: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.31.91:8082/api/Geometry/GetGeometryDataById",
+        fetchUrl,
         [parsedId],
         {
           headers: {
@@ -76,40 +92,50 @@ const GeometryDataComponent: React.FC = () => {
         }
       );
 
-      const geometryData = response.data[0];
+      const mathData = response.data[0];
 
-      if (geometryData) {
-        const images = await fetchImages(parsedId);
-        setData({
-          info: geometryData.info || "Інформація не надана",
-          definition: geometryData.definition || "Визначення не надано",
-          images,
-        });
-      } else {
+      if (!mathData) {
         setError("Дані не знайдено");
+        setLoading(false);
+        return;
       }
+
+      let images = [];
+      if (typeMath === 2 && fetchImagesUrl) {
+        // Завантажуємо зображення тільки для Геометрії
+        images = await fetchImages(parsedId);
+      }
+
+      setData({
+        info: mathData.info || "Інформація не надана",
+        definition: mathData.definition || "Визначення не надано",
+        images,
+      });
     } catch (err: any) {
       console.error("Помилка при завантаженні:", err);
       setError(err.response?.data?.message || "Не вдалося завантажити дані");
     } finally {
       setLoading(false);
     }
-  }, [parsedId, fetchImages]);
+  }, [parsedId, fetchUrl, fetchImages, typeMath, fetchImagesUrl]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   return (
-    <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
-      <h1>Geometry Data</h1>
+    <div className={s.container}>
+      {/* Виводимо назву підтеми, якщо вона є, інакше показуємо тип математики */}
+      <h1>{topicName || (typeMath === 1 ? "Алгебра" : "Геометрія")}</h1>
       {loading && <p>Завантаження...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {data ? (
         <>
           <div>
             <h2>Загальна інформація</h2>
-            {renderTextWithImages(data.info, data.images)}
+            {typeMath === 2 && data.images
+              ? renderTextWithImages(data.info, data.images)
+              : <p>{data.info}</p>}
           </div>
           <div>
             <h2>Словничок термінів</h2>
@@ -123,4 +149,4 @@ const GeometryDataComponent: React.FC = () => {
   );
 };
 
-export default GeometryDataComponent;
+export default UniversalMathComponent;

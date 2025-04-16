@@ -29,8 +29,6 @@ export const renderTextWithImages = (text: string, images?: Image[]): JSX.Elemen
     const image = images.find((img) => img.id === photoIndex);
     if (image && image.data) {
       // Перевірка правильності base64
-      console.log(image.data);
-
       parts.push(
         <React.Fragment key={`image-${photoIndex}`}>
           <br /> {/* Додаємо новий рядок перед зображенням */}

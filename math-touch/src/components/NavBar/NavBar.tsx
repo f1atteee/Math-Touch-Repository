@@ -2,169 +2,55 @@ import { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/img/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { PiCubeTransparentLight } from "react-icons/pi";
 import { GoGraph } from "react-icons/go";
 import { CgPhone } from "react-icons/cg";
 import { MdOutlineAssessment, MdVideogameAsset } from "react-icons/md";
 import s from "./NavBar.module.scss";
-
-interface MenuItem {
-  id: number;
-  name: string;
-  link: string;
-}
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
-  const [algebraMenu, setAlgebraMenu] = useState<MenuItem[]>([]);
-  const [geometryMenu, setGeometryMenu] = useState<MenuItem[]>([]);
-  const [showDropdownGeometry, setShowDropdownGeometry] = useState(false);
-  const [showDropdownAlgebra, setShowDropdownAlgebra] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const lastyear = "https://zno.osvita.ua/mathematics/";
 
-  const handleLoginClick = () => {
-    navigate("/auth");
-  };
-
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
-    return () => {
-      window.removeEventListener("scroll", scrollHandler);
-    };
+    return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const userId = localStorage.getItem("user");
       const token = localStorage.getItem("access_token");
-
-      if (!userId || !token) {
-        return;
-      }
+      if (!userId || !token) return;
 
       try {
         const response = await fetch(
-          `http://192.168.31.91:8081/api/User/GetById?id=${userId}`,
+          `http://localhost:8081/api/User/GetById?id=${userId}`,
           {
-            method: "GET",
             headers: {
-              "accept": "text/plain",
-              "Authorization": `Bearer ${token}`,
+              accept: "text/plain",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const userData = await response.json();
-        console.log(userData);
-        console.log(userData.userName);
-        setUserName(userData.userName);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+        const data = await response.json();
+        setUserName(data.userName);
+      } catch (err) {
+        console.error("Error fetching user:", err);
       }
     };
 
     fetchUserData();
   }, []);
 
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
-    }
-  }
-
-  const fetchGeometryData = async () => {
-    try {
-      const token = localStorage.getItem("access_token"); // Отримуємо токен
-
-      if (!token) {
-        console.error("Токен не знайдено!");
-        return;
-      }
-
-      const response = await fetch(
-        "http://192.168.31.91:8082/api/Section/GetSectionByTypeMath?typeMath=2",
-        {
-          method: "POST",
-          headers: {
-            "accept": "text/plain",
-            "Authorization": `Bearer ${token}`, // Додаємо токен до заголовків
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}), // API вимагає body, тому передаємо порожній об'єкт
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP помилка! Статус: ${response.status}`);
-      }
-
-      const rawData = await response.json();
-      console.log(rawData);
-
-      // Перетворення отриманих даних у формат MenuItem
-      const formattedData: MenuItem[] = rawData.map((item: any) => ({
-        id: item.idOrder, // Додай ID
-        name: item.name,
-        link: `/geometry/${item.idOrder}`, // Використовуємо idOrder для коректного маршруту
-      }));
-
-      setGeometryMenu(formattedData);
-    } catch (error) {
-      console.error("Помилка завантаження геометричних даних:", error);
-    }
-  };
-
-  const fetchAlgebraData = async () => {
-    try {
-      const token = localStorage.getItem("access_token"); // Отримуємо токен
-
-      if (!token) {
-        console.error("Токен не знайдено!");
-        return;
-      }
-
-      const response = await fetch(
-        "http://192.168.31.91:8082/api/Section/GetSectionByTypeMath?typeMath=1",
-        {
-          method: "POST",
-          headers: {
-            "accept": "text/plain",
-            "Authorization": `Bearer ${token}`, // Додаємо токен до заголовків
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}), // API вимагає body, тому передаємо порожній об'єкт
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP помилка! Статус: ${response.status}`);
-      }
-
-      const rawData = await response.json();
-      console.log(rawData);
-
-      // Перетворення отриманих даних у формат MenuItem
-      const formattedData: MenuItem[] = rawData.map((item: any) => ({
-        id: item.idOrder, // Додай ID
-        name: item.name,
-        link: `/algebra/${item.idOrder}`, // Використовуємо idOrder для коректного маршруту
-      }));
-
-      setAlgebraMenu(formattedData);
-    } catch (error) {
-      console.error("Помилка завантаження алгебраїчних даних:", error);
-    }
+  const scrollHandler = () => {
+    updateNavbar(window.scrollY >= 20);
   };
 
   return (
@@ -179,109 +65,49 @@ function NavBar() {
       </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="responsive-navbar-nav"
-        onClick={() => {
-          updateExpanded(!expand);
-        }}
+        onClick={() => updateExpanded(!expand)}
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </Navbar.Toggle>
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav defaultActiveKey="#home">
-          {/* Алгебра */}
-          <Nav.Item
-            style={{ marginLeft: "1em", position: "relative" }}
-            onMouseEnter={() => {
-              setShowDropdownAlgebra(true);
-              fetchAlgebraData(); // Запит виконується при наведенні
-            }}
-            onMouseLeave={() => setShowDropdownAlgebra(false)}
-          >
-            <Nav.Link as={Link} to="/algebra" onClick={() => updateExpanded(false)}>
-              <GoGraph style={{ marginBottom: "2px" }} /> Алгебра
-            </Nav.Link>
-
-            {showDropdownAlgebra && (
-              <div className={s.dropdownMenu}>
-                {algebraMenu.length > 0 ? (
-                  algebraMenu.map((item, index) => (
-                    <Link
-                      key={index}
-                      to={item.link} // Використовуємо згенероване посилання
-                      className={s.dropdownMenuItem}
-                      onClick={() => updateExpanded(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))
-                ) : (
-                  <div className={s.dropdownMenuItem}>Завантаження...</div>
-                )}
-              </div>
-            )}
-          </Nav.Item>
-
-          {/* Геометрія */}
-          <Nav.Item
-            style={{ marginLeft: "1em", position: "relative" }}
-            onMouseEnter={() => {
-              setShowDropdownGeometry(true);
-              fetchGeometryData(); // Запит виконується при наведенні
-            }}
-            onMouseLeave={() => setShowDropdownGeometry(false)}
-          >
-            <Nav.Link as={Link} to="/geometry" onClick={() => updateExpanded(false)}>
-              <PiCubeTransparentLight style={{ marginBottom: "2px" }} /> Геометрія
-            </Nav.Link>
-
-            {showDropdownGeometry && (
-              <div className={s.dropdownMenu}>
-                {geometryMenu.length > 0 ? (
-                  geometryMenu.map((item, index) => (
-                    <Link
-                      key={index}
-                      to={item.link} // Використовуємо згенероване посилання
-                      className={s.dropdownMenuItem}
-                      onClick={() => updateExpanded(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))
-                ) : (
-                  <div className={s.dropdownMenuItem}>Завантаження...</div>
-                )}
-              </div>
-            )}
-          </Nav.Item>
-
-          {/* Інші пункти меню */}
+        <Nav>
+          <DropDownMenu
+            label="Алгебра"
+            icon={<GoGraph style={{ marginBottom: "2px" }} />}
+            typeMath={1}
+            pathPrefix="algebra"
+            fetchUrl="http://localhost:8082/api/Section/GetSectionByTypeMath"
+            updateExpanded={updateExpanded}
+          />
+          <DropDownMenu
+            label="Геометрія"
+            icon={<PiCubeTransparentLight style={{ marginBottom: "2px" }} />}
+            typeMath={2}
+            pathPrefix="geometry"
+            fetchUrl="http://localhost:8082/api/Section/GetSectionByTypeMath"
+            updateExpanded={updateExpanded}
+          />
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to={lastyear} onClick={() => updateExpanded(false)}>
               <MdVideogameAsset style={{ marginBottom: "2px" }} /> Минулорічні НМТ
             </Nav.Link>
           </Nav.Item>
-
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
               <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Власні тести
             </Nav.Link>
           </Nav.Item>
-
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/about" onClick={() => updateExpanded(false)}>
               <AiOutlineUser style={{ marginBottom: "2px" }} /> Про нас
             </Nav.Link>
           </Nav.Item>
-
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/contact" onClick={() => updateExpanded(false)}>
               <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
             </Nav.Link>
           </Nav.Item>
-            <div className={s.login_div}>
-              Привіт, {userName}
-            </div>
+          <div className={s.login_div}>Привіт, {userName}</div>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -1,0 +1,23 @@
+.container {
+  max-width: 100%; /* На всю ширину сторінки */
+  margin: 0 auto; /* Центрування */
+  padding: 20px; /* Відступи */
+  box-sizing: border-box; /* Враховує padding у ширині */
+  margin-top: 80px; /* Відступ від navBar (налаштуйте залежно від висоти navBar) */
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center; /* Центрування заголовка */
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6; /* Зручне читання тексту */
+}

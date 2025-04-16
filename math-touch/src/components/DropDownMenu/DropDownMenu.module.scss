@@ -1,0 +1,73 @@
+/* DropDownMenu.module.scss */
+
+.dropdownWrapper {
+  position: relative;
+  z-index: 10; /* Забезпечує, щоб меню було вище решти контенту */
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Перекриває інші елементи */
+  display: flex;
+}
+
+.sectionList {
+  display: flex;
+  flex-direction: column;
+  width: 200px; /* Фіксована ширина для секцій */
+}
+
+.dropdownMenuItem {
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.2s;
+  position: relative; /* Додаємо для позиціонування підменю */
+}
+
+.dropdownMenuItem:hover {
+  background-color: #f0f0f0;
+}
+
+.active {
+  background-color: #e0e0e0; /* Активна секція */
+}
+
+.subMenu {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Відображає підменю праворуч від основного меню */
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* Початково приховане */
+  flex-direction: column;
+  width: 200px; /* Фіксована ширина для підменю */
+  z-index: 1000;
+
+  /* Додаємо прокручування */
+  max-height: 300px; /* Максимальна висота підменю */
+  overflow-y: auto; /* Додаємо вертикальну прокрутку */
+}
+
+.subMenu.visible {
+  display: flex; /* Відображає підменю */
+}
+
+.subMenu .dropdownMenuItem {
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.2s;
+}
+
+.subMenu .dropdownMenuItem:hover {
+  background-color: #f0f0f0;
+}
