@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/img/logo.png";
@@ -15,6 +16,7 @@ function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const lastyear = "https://zno.osvita.ua/mathematics/";
 
@@ -51,6 +53,12 @@ function NavBar() {
 
   const scrollHandler = () => {
     updateNavbar(window.scrollY >= 20);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/auth");
+    window.location.reload();
   };
 
   return (
@@ -107,7 +115,12 @@ function NavBar() {
               <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
             </Nav.Link>
           </Nav.Item>
-          <div className={s.login_div}>Привіт, {userName}</div>
+          <div className={s.login_div}>
+            Привіт, {userName}
+          </div>
+            <button className={s.logout_button} onClick={handleLogout}>
+            Вихід
+            </button>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

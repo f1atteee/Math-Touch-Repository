@@ -173,9 +173,33 @@ width: 100%;
   }
 }
 
-.login_div{
-  position: absolute;
-  right: 5px;
-  margin: 0em 1.4em 0em;
+.login_div {
+  display: flex; /* Вирівнюємо текст і кнопку по горизонталі */
+  align-items: center; /* Вирівнюємо по вертикалі */
+  justify-content: flex-end; /* Вирівнюємо елементи праворуч */
+  position: absolute; /* Абсолютне позиціонування */
+  right: 20px; /* Відступ від правого краю */
+  top: 50%; /* Центруємо по вертикалі */
+  transform: translateY(-50%); /* Центруємо по вертикалі */
+  gap: 10px; /* Відступ між текстом і кнопкою */
+  font-size: 1.3rem; /* Розмір тексту */
+  font-weight: 400; /* Робимо текст трохи жирнішим */
+  color: $darkBackColor; /* Темний колір тексту */
 }
 
+.logout_button {
+  background-color: $white; /* Білий фон */
+  border: 1px solid $darkBackColor; /* Темний бордер */
+  border-radius: 5px; /* Закруглені кути */
+  color: $darkBackColor; /* Темний текст */
+  right: 20px; /* Відступ від правого краю */
+  padding: 5px 15px; /* Відступи всередині кнопки */
+  font-size: 0.9rem; /* Розмір тексту кнопки */
+  cursor: pointer; /* Вказівник при наведенні */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Плавний перехід */
+
+  &:hover {
+    background-color: $darkBackColor; /* Темний фон при наведенні */
+    color: $white; /* Білий текст при наведенні */
+  }
+}
