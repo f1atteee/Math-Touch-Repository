@@ -3,11 +3,6 @@ import {
     Row, Col, 
     Toast, ToastContainer
 } from "react-bootstrap";
-import {
-    SiLinkedin,
-    SiInstagram,
-    SiTelegram,
-} from "react-icons/si";
 import s from "./Contact.module.scss";
 
 interface Toast {
@@ -69,7 +64,7 @@ function Contact() {
         e.preventDefault();
    
         if (isCooldown) {
-            addToast(`Please wait ${cooldownTime} seconds before trying again.`, 'warning');
+            addToast(`${cooldownTime} сек. щоб відправити нове повідомлення.`, 'warning');
             return;
         }
    
@@ -115,23 +110,23 @@ function Contact() {
                             <p className={s.label}>Як тебе звати?</p>
                             <input
                                 type="text"
-                                placeholder="Василь"
+                                placeholder="Ім'я"
                                 className={s.input}
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <p className={s.label}>Голубина пошта</p>
+                            <p className={s.label}>Поштова скринька</p>
                             <input
                                 type="email"
-                                placeholder="курлик ?"
+                                placeholder="Тут введіть вашу пошту"
                                 className={s.input}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <p className={s.label}>Щось цікаве</p>
+                            <p className={s.label}>Повідомлення</p>
                             <textarea
                                 rows={5}
-                                placeholder="Ось тут можна"
+                                placeholder="Тут введіть ваше повідомлення"
                                 className={s.input}
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}/>
@@ -142,19 +137,8 @@ function Contact() {
 
                     <div className={s.contact_info}>
                         <h3 className={s.info_heading}>Наша інформація</h3>
-                        <p className={s.info_text}><strong>Номер:</strong> +380733666360</p>
-                        <p className={s.info_text}><strong>Голубина пошта:</strong> nazarkrravets@gmail.com</p>
-                        <div className={s.social_links}>
-                            <a href="https://t.me/direector" className={s.social_icon}>
-                                <SiTelegram/>
-                            </a>
-                            <a href="https://www.instagram.com/naz_kravets" className={s.social_icon}>
-                                <SiInstagram/>
-                            </a>
-                            <a href="https://www.linkedin.com/in/nazar-kravets-086812230/" className={s.social_icon}>
-                                <SiLinkedin/>
-                            </a>
-                        </div>
+                        <p className={s.info_text}><strong>Поштова скринька:</strong> nazarkrravets@gmail.com</p>
+                        <p className={s.info_text}><strong>Поштова скринька:</strong> oliakravets0@gmail.com</p>
                     </div>
                 </Col>
             </Row>

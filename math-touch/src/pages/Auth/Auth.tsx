@@ -61,10 +61,10 @@ const Auth = () => {
                 <div className={s.logoContainer}>
                     <Logo/>
                 </div>
-                <h1 className={s.formTitle}>Раді вітати Вас знову</h1>
+                <h1 className={s.formTitle}>Увійти</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="login">
-                        <Form.Label>Логін/пошта</Form.Label>
+                        <Form.Label className={s.formLabel}>Логін/пошта</Form.Label>
                         <Form.Control
                             autoFocus
                             type="text"
@@ -73,7 +73,7 @@ const Auth = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="password">
-                        <Form.Label>Пароль</Form.Label>
+                        <Form.Label className={s.formLabel}>Пароль</Form.Label>
                         <Form.Control
                             type="password"
                             value={password}
@@ -91,7 +91,7 @@ const Auth = () => {
                 </Form>
                 <div className={s.registerLink}>
                     <button className={s.buttonLogin} onClick={() => setShowRegister(true)}>
-                        Ти тут новенький ? Створи профіль
+                        Ти тут новенький ? Створити профіль
                     </button>
                 </div>
                 <Register show={showRegister} handleClose={() => setShowRegister(false)} />

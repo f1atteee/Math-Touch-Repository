@@ -46,10 +46,13 @@ padding-top: 30px;
 }
 
 .home_content {
-padding: 9rem 0 2rem;
-color: $backMainTextColor;
-text-align: left;
-}
+    min-height: 100vh;
+    padding: 9rem 0 2rem;
+    color: $backMainTextColor;
+    text-align: left;
+    background-color: $navBarlightBackColor;
+  }
+  
 
 .heading {
 font-size: 2.4em;

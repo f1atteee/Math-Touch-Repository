@@ -68,13 +68,13 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Register</Modal.Title>
+                <Modal.Title>Реєстрація</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {error && <p className={s.errorMessage}>{error}</p>}
                 <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="registerUserName">
-                        <Form.Label>Login</Form.Label>
+                        <Form.Label>Логін</Form.Label>
                         <Form.Control
                             type="text"
                             value={userName}
@@ -82,7 +82,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
                         />
                     </Form.Group>
                     <Form.Group controlId="registerEmail">
-                        <Form.Label>E-mail</Form.Label>
+                        <Form.Label>Поштова скринька</Form.Label>
                         <Form.Control
                             type="email"
                             value={email}
@@ -90,7 +90,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
                         />
                     </Form.Group>
                     <Form.Group controlId="registerPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Пароль</Form.Label>
                         <Form.Control
                             type="password"
                             value={password}
@@ -98,7 +98,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
                         />
                     </Form.Group>
                     <Form.Group controlId="registerRepeatPassword">
-                        <Form.Label>Repeat Password</Form.Label>
+                        <Form.Label>Знову пароль</Form.Label>
                         <Form.Control
                             type="password"
                             value={repeadPassword}
@@ -106,7 +106,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
                         />
                     </Form.Group>
                     <button disabled={!validateForm() || isLoading} className={s.buttonLogin}>
-                        {isLoading ? 'Registering...' : 'Register'}
+                        {isLoading ? 'Реєстрація...' : 'Register'}
                     </button>
                 </Form>
             </Modal.Body>

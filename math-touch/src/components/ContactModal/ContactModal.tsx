@@ -77,7 +77,7 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Get In Touch</Modal.Title>
+                <Modal.Title>Зворотній зв'язок</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Container className={s.contact_section}>
@@ -85,38 +85,38 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
                         <Col md={12} className={s.contact_form}>
                             <Form onSubmit={handleSubmit} >
                                 <Form.Group controlId="formName">
-                                    <Form.Label className={s.label}>Name</Form.Label>
+                                    <Form.Label className={s.label}>Ім'я</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="Enter your name"
+                                        placeholder="Тут введіть ваше ім'я"
                                         className={s.input}
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formEmail">
-                                    <Form.Label className={s.label}>Email</Form.Label>
+                                    <Form.Label className={s.label}>Поштова скринька</Form.Label>
                                     <Form.Control
                                         type="email"
-                                        placeholder="Enter your email"
+                                        placeholder="Тут введіть вашу пошту"
                                         className={s.input}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formMessage">
-                                    <Form.Label className={s.label}>Message</Form.Label>
+                                    <Form.Label className={s.label}>Текст повідомлення</Form.Label>
                                     <Form.Control
                                         as="textarea"
                                         rows={5}
-                                        placeholder="Write your message"
+                                        placeholder="Тут введіть ваше повідомлення"
                                         className={s.input}
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Button type="submit" className={s.sumbit_button}>
-                                    Send Message
+                                    Надіслати
                                 </Button>
                             </Form>
                         </Col>

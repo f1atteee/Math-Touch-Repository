@@ -18,18 +18,10 @@ function Home() {
                   Я
                   <strong className={s.main_name}> твій посібник з математики </strong>
                 </h1>
-
-              </Col>
-            </Row>
-          </Container>
-          <Container className={s.home_page_two}>
-            <Row>
-              <Col md={7}>
+                <br/>
                 <h3 className={s.heading_name} style={{paddingBottom: "50px"}}>
                 Допоможу <span className={s.green}> пригадати або ж вивчити</span>. <br/>Усі<span className={s.green}> теми із шкільного курсу математики</span>. 
                 </h3>
-                <br/>
-                <br/>
               </Col>
             </Row>
           </Container>

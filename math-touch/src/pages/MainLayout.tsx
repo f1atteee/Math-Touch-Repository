@@ -6,14 +6,15 @@ import FloatingContactButton from "../components/ContactModal/FloatingContactBut
 const MainLayout = () => {
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh'}}>
-                <NavBar/>
-                <div style={{ flexGrow: 1 }}>
-                    <Outlet></Outlet>
-                </div>
-                <Footer/>
-                <FloatingContactButton/>
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <NavBar />
+            <div style={{ flexGrow: 1 }}>
+                <Outlet />
             </div>
+            <Footer />
+            <FloatingContactButton />
+            </div>
+
         </>
     );
 };
