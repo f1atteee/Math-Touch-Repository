@@ -106,7 +106,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
                         />
                     </Form.Group>
                     <button disabled={!validateForm() || isLoading} className={s.buttonLogin}>
-                        {isLoading ? 'Реєстрація...' : 'Register'}
+                        {isLoading ? 'Реєстрація...' : 'Реєстрація'}
                     </button>
                 </Form>
             </Modal.Body>

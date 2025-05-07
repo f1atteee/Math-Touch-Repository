@@ -131,13 +131,13 @@ const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
       {error && <p style={{ color: "red" }}>{error}</p>}
       {data ? (
         <>
-          <div>
+          <div className={s.preserveWhitespace}>
             <h2>Загальна інформація</h2>
             {typeMath === 2 && data.images
               ? renderTextWithImages(data.info, data.images)
               : <p>{data.info}</p>}
           </div>
-          <div>
+          <div className={s.preserveWhitespace}>
             <h2>Словничок термінів</h2>
             <p>{data.definition}</p>
           </div>
