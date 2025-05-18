@@ -96,13 +96,18 @@ function NavBar() {
             updateExpanded={updateExpanded}
           />
           <Nav.Item style={{ marginLeft: "1em" }}>
-            <Nav.Link as={Link} to={lastyear} onClick={() => updateExpanded(false)}>
+            <Nav.Link
+              href={lastyear} // Використовуємо href для відкриття посилання
+              target="_blank" // Відкриваємо посилання у новій вкладці
+              rel="noopener noreferrer" // Забезпечуємо безпеку
+              onClick={() => updateExpanded(false)} // Закриваємо меню
+            >
               <MdVideogameAsset style={{ marginBottom: "2px" }} /> Минулорічні НМТ
             </Nav.Link>
           </Nav.Item>
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
-              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Власні тести
+              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Авторські тести
             </Nav.Link>
           </Nav.Item>
           <Nav.Item style={{ marginLeft: "1em" }}>
@@ -115,12 +120,14 @@ function NavBar() {
               <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
             </Nav.Link>
           </Nav.Item>
-          <div className={s.login_div}>
-            Привіт, {userName}
-          </div>
+          <div className={s.login_container}>
+            <div className={s.login_div}>
+              Привіт, {userName}
+            </div>
             <button className={s.logout_button} onClick={handleLogout}>
-            Вихід
+              Вихід
             </button>
+          </div>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

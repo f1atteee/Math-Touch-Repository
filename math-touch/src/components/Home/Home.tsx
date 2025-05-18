@@ -20,7 +20,8 @@ function Home() {
                 </h1>
                 <br/>
                 <h3 className={s.heading_name} style={{paddingBottom: "50px"}}>
-                Допоможу <span className={s.green}> пригадати або ж вивчити</span>. <br/>Усі<span className={s.green}> теми із шкільного курсу математики</span>. 
+                Тут ти знайдеш усе, що потрібно для підготовки до <span className={s.green}>ЗНО з математики.</span>
+                <br/>Вивчай теми, проходь тести — і впевнено складай іспит!. 
                 </h3>
               </Col>
             </Row>

@@ -21,3 +21,15 @@
     background: $lightBackColor;
     border-radius: 12px;
   }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Гарантуємо, що body і html займають всю висоту */
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Гарантуємо, що root займає всю висоту вікна */
+  }

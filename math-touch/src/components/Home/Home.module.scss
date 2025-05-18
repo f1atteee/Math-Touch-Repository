@@ -46,13 +46,15 @@ padding-top: 30px;
 }
 
 .home_content {
-    min-height: 100vh;
+    display: flex; /* Використовуємо flexbox */
+    flex-direction: column; /* Розташовуємо елементи вертикально */
+    justify-content: space-between; /* Розподіляємо контент і футер */
+    min-height: 100vh; /* Займаємо всю висоту вікна */
     padding: 9rem 0 2rem;
     color: $backMainTextColor;
     text-align: left;
     background-color: $navBarlightBackColor;
-  }
-  
+}
 
 .heading {
 font-size: 2.4em;

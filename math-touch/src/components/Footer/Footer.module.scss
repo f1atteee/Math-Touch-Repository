@@ -1,10 +1,12 @@
 @import '/src/styles/vars';
 
 .footer {
-    background-color: $darkBackColor;
-    padding: 10px 0;
-    text-align: center;
-  }
+  background-color: $darkBackColor;
+  color: $white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto; /* Додаємо автоматичний відступ, щоб футер завжди був внизу */
+}
   
   .copywright {
     font-size: 1rem;

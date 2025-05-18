@@ -157,49 +157,35 @@ width: 100%;
   color: $whiteMainTextColor
 }
 
-.login_button {
-  background-color: $darkBackColor;
-  border-radius: 10px;
-  color: $white;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  text-align: center;
-  display: inline-block;
-  line-height: 1.5;
-  transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
-
-  &:hover {
-    background-color: lighten($greenColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
-  }
+.login_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  gap: 10px;
 }
 
 .login_div {
-  display: flex; /* Вирівнюємо текст і кнопку по горизонталі */
-  align-items: center; /* Вирівнюємо по вертикалі */
-  justify-content: flex-end; /* Вирівнюємо елементи праворуч */
-  position: absolute; /* Абсолютне позиціонування */
-  right: 20px; /* Відступ від правого краю */
-  top: 50%; /* Центруємо по вертикалі */
-  transform: translateY(-50%); /* Центруємо по вертикалі */
-  gap: 10px; /* Відступ між текстом і кнопкою */
-  font-size: 1.3rem; /* Розмір тексту */
-  font-weight: 400; /* Робимо текст трохи жирнішим */
-  color: $darkBackColor; /* Темний колір тексту */
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: $darkBackColor;
 }
 
 .logout_button {
-  background-color: $white; /* Білий фон */
-  border: 1px solid $darkBackColor; /* Темний бордер */
-  border-radius: 5px; /* Закруглені кути */
-  color: $darkBackColor; /* Темний текст */
-  right: 20px; /* Відступ від правого краю */
-  padding: 5px 15px; /* Відступи всередині кнопки */
-  font-size: 0.9rem; /* Розмір тексту кнопки */
-  cursor: pointer; /* Вказівник при наведенні */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Плавний перехід */
+  background-color: $white;
+  border: 1px solid $darkBackColor;
+  border-radius: 5px;
+  color: $darkBackColor;
+  padding: 5px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background-color: $darkBackColor; /* Темний фон при наведенні */
-    color: $white; /* Білий текст при наведенні */
+    background-color: $darkBackColor;
+    color: $white;
   }
 }
