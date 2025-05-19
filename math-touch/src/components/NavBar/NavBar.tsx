@@ -111,11 +111,6 @@ function NavBar() {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item style={{ marginLeft: "1em" }}>
-            <Nav.Link as={Link} to="/about" onClick={() => updateExpanded(false)}>
-              <AiOutlineUser style={{ marginBottom: "2px" }} /> Про нас
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/contact" onClick={() => updateExpanded(false)}>
               <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
             </Nav.Link>
