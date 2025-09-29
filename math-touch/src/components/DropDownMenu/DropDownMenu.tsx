@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import s from "./DropDownMenu.module.scss";
+import { THEMS_GET_BY_IDS_FOR_TYPE_URL } from "@src/config/api";
 
 interface TopicItem {
   id: number;
@@ -74,7 +75,7 @@ const DropDownMenu = ({
     if (!token) return [];
 
     const response = await fetch(
-      `http://localhost:8082/api/Thems/GetThemsByIdsForTypeMath?typeMath=${typeMath}`,
+      `${THEMS_GET_BY_IDS_FOR_TYPE_URL}?typeMath=${typeMath}`,
       {
         method: "POST",
         headers: {

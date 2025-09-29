@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { USER_GET_BY_ID_URL, USER_UPDATE_URL } from '@src/config/api';
 
 export interface UserDto {
     id?: string | number;
@@ -36,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             return;
         }
         try {
-            const resp = await fetch(`https://localhost:7007/api/User/GetById?id=${encodeURIComponent(userId)}`, {
+            const resp = await fetch(USER_GET_BY_ID_URL(userId), {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json',
@@ -70,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const token = localStorage.getItem('access_token');
         if (!token || !user) return null;
         try {
-            const resp = await fetch('https://localhost:7007/api/User/Update', {
+            const resp = await fetch(USER_UPDATE_URL, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

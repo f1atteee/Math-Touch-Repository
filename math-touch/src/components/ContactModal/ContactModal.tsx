@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal, Button, Container, Row, Col, Form, Toast, ToastContainer } from "react-bootstrap";
 import s from "./ContactModal.module.scss";
+import { CONTACT_SEND_URL } from "@src/config/api";
 
 interface Toast {
     id: number;
@@ -54,7 +55,7 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
         const formData = { name, email, message };
    
         try {
-            const response = await fetch('http://localhost:8083/api/Contact/send', {
+            const response = await fetch(CONTACT_SEND_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

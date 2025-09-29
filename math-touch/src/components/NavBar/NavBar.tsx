@@ -4,23 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/img/logo.png";
 import { Link } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
+import { SECTION_GET_BY_TYPE_URL, USER_GET_BY_ID_URL } from "@src/config/api";
 import { PiCubeTransparentLight } from "react-icons/pi";
 import { GoGraph } from "react-icons/go";
 import { CgPhone } from "react-icons/cg";
 import { MdOutlineAssessment, MdVideogameAsset } from "react-icons/md";
 import s from "./NavBar.module.scss";
-<<<<<<< Updated upstream
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
-=======
 import ProfileModal from "@src/components/Profile/ProfileModal";
 import { useAuth } from "@src/context/AuthContext";
-
-interface MenuItem {
-  name: string;
-  link: string;
-}
->>>>>>> Stashed changes
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
@@ -45,7 +37,7 @@ function NavBar() {
 
       try {
         const response = await fetch(
-          `http://localhost:8081/api/User/GetById?id=${userId}`,
+          USER_GET_BY_ID_URL(userId),
           {
             headers: {
               accept: "text/plain",
@@ -96,7 +88,7 @@ function NavBar() {
             icon={<GoGraph style={{ marginBottom: "2px" }} />}
             typeMath={1}
             pathPrefix="algebra"
-            fetchUrl="http://localhost:8082/api/Section/GetSectionByTypeMath"
+            fetchUrl={SECTION_GET_BY_TYPE_URL}
             updateExpanded={updateExpanded}
           />
           <DropDownMenu
@@ -104,7 +96,7 @@ function NavBar() {
             icon={<PiCubeTransparentLight style={{ marginBottom: "2px" }} />}
             typeMath={2}
             pathPrefix="geometry"
-            fetchUrl="http://localhost:8082/api/Section/GetSectionByTypeMath"
+            fetchUrl={SECTION_GET_BY_TYPE_URL}
             updateExpanded={updateExpanded}
           />
           <Nav.Item style={{ marginLeft: "1em" }}>
@@ -129,30 +121,25 @@ function NavBar() {
           </Nav.Item>
           <div className={s.login_container}>
             <div className={s.login_div}>
-<<<<<<< Updated upstream
-              Привіт, {userName}
-            </div>
-            <button className={s.logout_button} onClick={handleLogout}>
-              Вихід
-            </button>
-          </div>
-        </Nav>
-      </Navbar.Collapse>
-=======
               {!isAuthorized ? (
-                <button className={s.login_button} onClick={handleLoginClick}>
+                <button className={s.login_button} onClick={() => navigate('/auth')}>
                   Login
                 </button>
               ) : (
                 <button className={s.login_button} onClick={() => setShowProfile(true)}>
-                  {user?.userName || 'Profile'}
+                  {user?.userName || userName || 'Profile'}
                 </button>
               )}
             </div>
-          </Nav>
-        </Navbar.Collapse>
-        <ProfileModal show={showProfile} handleClose={() => setShowProfile(false)} />
->>>>>>> Stashed changes
+            {isAuthorized && (
+              <button className={s.logout_button} onClick={handleLogout}>
+                Вихід
+              </button>
+            )}
+          </div>
+        </Nav>
+      </Navbar.Collapse>
+      <ProfileModal show={showProfile} handleClose={() => setShowProfile(false)} />
     </Navbar>
   );
 }

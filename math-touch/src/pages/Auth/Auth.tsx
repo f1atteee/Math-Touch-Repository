@@ -5,6 +5,7 @@ import s from "./Auth.module.scss";
 import Logo from "@src/components/Logo/Logo";
 import { useAuth } from '../../context/AuthContext';
 import CryptoJS from 'crypto-js';
+import { USER_LOGIN_URL } from '@src/config/api';
 
 const Auth = () => {
     const [login, setLogin] = useState("");
@@ -25,7 +26,7 @@ const Auth = () => {
         event.preventDefault();
         var hashPass = await hashPassword();
         try {
-            const response = await fetch('http://localhost:8081/api/User/Login', {
+            const response = await fetch(USER_LOGIN_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

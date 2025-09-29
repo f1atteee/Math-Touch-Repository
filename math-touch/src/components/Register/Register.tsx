@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import s from "./Register.module.scss";
 import CryptoJS from 'crypto-js';
+import { USER_CREATE_URL } from '@src/config/api';
 
 const Register = ({ show, handleClose }: { show: boolean; handleClose: () => void }) => {
     const [userName, setUserName] = useState("");
@@ -40,7 +41,7 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
         const hashedPassword = await hashPassword();
 
         try {
-            const response = await fetch('http://localhost:8081/api/User/Create', {
+            const response = await fetch(USER_CREATE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,13 +94,8 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
             <Modal.Body>
                 {error && <p className={s.errorMessage}>{error}</p>}
                 <Form onSubmit={handleSubmit}>
-<<<<<<< Updated upstream
-                <Form.Group controlId="registerUserName">
-                        <Form.Label>Логін</Form.Label>
-=======
                     <Form.Group controlId="registerUserName">
-                        <Form.Label>Login</Form.Label>
->>>>>>> Stashed changes
+                        <Form.Label>Логін</Form.Label>
                         <Form.Control
                             type="text"
                             value={userName}

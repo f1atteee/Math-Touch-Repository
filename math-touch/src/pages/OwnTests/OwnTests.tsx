@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { QUESTIONS_BASE_URL, TESTING_START_URL, TESTING_SUBMIT_URL } from "@src/config/api";
 
 interface AnswerOptionDto {
     id?: number;
@@ -28,8 +29,6 @@ interface TestSubmissionDto {
     Answers: Record<number, string>; // key: questionId, value: JSON string of ids
 }
 
-const API_BASE = "https://localhost:7010";
-
 export default function OwnTests() {
     const [questions, setQuestions] = useState<QuestionDto[]>([]);
     const [loading, setLoading] = useState(false);
@@ -52,7 +51,7 @@ export default function OwnTests() {
         setLoading(true);
         setError(null);
         try {
-            const resp = await fetch(`${API_BASE}/api/questions`, {
+            const resp = await fetch(`${QUESTIONS_BASE_URL}`, {
                 headers: { 'accept': 'application/json' }
             });
             if (!resp.ok) throw new Error('Failed to load questions');
@@ -102,7 +101,7 @@ export default function OwnTests() {
         setLoading(true);
         try {
             const isNew = !editing.id;
-            const url = isNew ? `${API_BASE}/api/questions` : `${API_BASE}/api/questions/${editing.id}`;
+            const url = isNew ? `${QUESTIONS_BASE_URL}` : `${QUESTIONS_BASE_URL}/${editing.id}`;
             const method = isNew ? 'POST' : 'PUT';
             const resp = await fetch(url, {
                 method,
@@ -134,7 +133,7 @@ export default function OwnTests() {
         if (!confirm('Видалити питання?')) return;
         setLoading(true);
         try {
-            const resp = await fetch(`${API_BASE}/api/questions/${id}`, { method: 'DELETE' });
+            const resp = await fetch(`${QUESTIONS_BASE_URL}/${id}`, { method: 'DELETE' });
             if (!resp.ok) throw new Error('Failed to delete');
             await loadQuestions();
         } catch (e: any) {
@@ -150,7 +149,7 @@ export default function OwnTests() {
         setSelectedAnswers({});
         try {
             const token = localStorage.getItem('access_token');
-            const resp = await fetch(`${API_BASE}/api/testing/start?sectionId=${encodeURIComponent(sectionId)}&sectionName=${encodeURIComponent(sectionName)}&targetScore=${encodeURIComponent(targetScore)}`, {
+            const resp = await fetch(`${TESTING_START_URL}?sectionId=${encodeURIComponent(sectionId)}&sectionName=${encodeURIComponent(sectionName)}&targetScore=${encodeURIComponent(targetScore)}`, {
                 headers: {
                     'accept': 'application/json',
                     ...(token ? { 'Authorization': `Bearer ${token}` } : {})
@@ -196,7 +195,7 @@ export default function OwnTests() {
                 Answers: answersDict
             };
             const token = localStorage.getItem('access_token');
-            const resp = await fetch(`${API_BASE}/api/testing/submit`, {
+            const resp = await fetch(`${TESTING_SUBMIT_URL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
