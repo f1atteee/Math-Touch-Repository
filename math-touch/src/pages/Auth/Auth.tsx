@@ -43,8 +43,14 @@ const Auth = () => {
 
             const data = await response.json();
             if (data) {
-                localStorage.setItem('access_token', `${data.accesToken}`);
-                localStorage.setItem('user', `${data.user.id}`);
+                const token = data.accessToken || data.accesToken || data.token;
+                const userId = (data.user && (data.user.id || data.user.userId)) || data.userId || data.id;
+                if (token) {
+                    localStorage.setItem('access_token', String(token));
+                }
+                if (userId !== undefined && userId !== null) {
+                    localStorage.setItem('user', String(userId));
+                }
                 setIsAuthorized(true);
                 console.log('Logged in successfully, token saved to localStorage');
             } else {

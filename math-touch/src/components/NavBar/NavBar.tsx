@@ -10,13 +10,25 @@ import { GoGraph } from "react-icons/go";
 import { CgPhone } from "react-icons/cg";
 import { MdOutlineAssessment, MdVideogameAsset } from "react-icons/md";
 import s from "./NavBar.module.scss";
+<<<<<<< Updated upstream
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
+=======
+import ProfileModal from "@src/components/Profile/ProfileModal";
+import { useAuth } from "@src/context/AuthContext";
+
+interface MenuItem {
+  name: string;
+  link: string;
+}
+>>>>>>> Stashed changes
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { isAuthorized, user } = useAuth();
+  const [showProfile, setShowProfile] = useState(false);
 
   const lastyear = "https://zno.osvita.ua/mathematics/";
 
@@ -117,6 +129,7 @@ function NavBar() {
           </Nav.Item>
           <div className={s.login_container}>
             <div className={s.login_div}>
+<<<<<<< Updated upstream
               Привіт, {userName}
             </div>
             <button className={s.logout_button} onClick={handleLogout}>
@@ -125,6 +138,21 @@ function NavBar() {
           </div>
         </Nav>
       </Navbar.Collapse>
+=======
+              {!isAuthorized ? (
+                <button className={s.login_button} onClick={handleLoginClick}>
+                  Login
+                </button>
+              ) : (
+                <button className={s.login_button} onClick={() => setShowProfile(true)}>
+                  {user?.userName || 'Profile'}
+                </button>
+              )}
+            </div>
+          </Nav>
+        </Navbar.Collapse>
+        <ProfileModal show={showProfile} handleClose={() => setShowProfile(false)} />
+>>>>>>> Stashed changes
     </Navbar>
   );
 }

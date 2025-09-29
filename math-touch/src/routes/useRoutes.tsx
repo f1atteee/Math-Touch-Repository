@@ -3,7 +3,11 @@ import Auth from "../pages/Auth/Auth";
 import MainLayout from "../pages/MainLayout";
 import Contact from "@src/components/Contact/Contact";
 import Home from "@src/components/Home/Home";
+<<<<<<< Updated upstream
 import UniversalMathComponent from "@src/components/UniversalMathComponent/UniversalMathComponent";
+=======
+import OwnTests from "@src/pages/OwnTests/OwnTests";
+>>>>>>> Stashed changes
 
 export const useRoutes = (isAuthorized: boolean) => {
     if (!isAuthorized) {
@@ -16,6 +20,7 @@ export const useRoutes = (isAuthorized: boolean) => {
     }
     return (
         <Routes>
+<<<<<<< Updated upstream
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/" element={<MainLayout />}>
                 <Route path="" element={<Home />} />
@@ -45,5 +50,14 @@ export const useRoutes = (isAuthorized: boolean) => {
                 />
             </Route>
         </Routes>
+=======
+        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<MainLayout />}>
+            <Route path="" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/owntest" element={<OwnTests />} />
+        </Route>
+    </Routes>
+>>>>>>> Stashed changes
     );
 };

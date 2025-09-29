@@ -1,0 +1,22 @@
+.group {
+  margin-bottom: 12px;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.telegram_link {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #229ED9; /* Telegram color */
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.telegram_link:hover {
+  opacity: 0.9;
+}
+
+

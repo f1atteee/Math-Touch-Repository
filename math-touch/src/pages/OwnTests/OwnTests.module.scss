@@ -1,0 +1,41 @@
+.wrapper {
+  padding: 24px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.inlineForm {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+}
+
+.spacer { flex: 1; }
+
+.table {
+  background: rgba(239, 236, 236, 0.1);
+  border-radius: 10px;
+}
+
+.field { margin-bottom: 12px; }
+
+.answerHeader { margin: 8px 0; font-weight: bold; }
+.answerRow { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+
+.testWrapper { margin-top: 24px; }
+.questionCard { padding: 12px; margin-bottom: 12px; border-radius: 8px; background: rgba(239,236,236,0.06); }
+.qHeader { display: flex; gap: 12px; align-items: center; }
+.qScore { background: #2e7d32; color: #fff; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
+.qText { font-size: 16px; }
+.qImage { margin-top: 8px; max-width: 100%; border-radius: 6px; }
+.answers { margin-top: 8px; display: grid; gap: 6px; }
+.answerItem { display: flex; gap: 8px; align-items: center; }
+.testActions { margin-top: 12px; }
+
+.error { color: #ff6b6b; margin-bottom: 12px; }
+
+
