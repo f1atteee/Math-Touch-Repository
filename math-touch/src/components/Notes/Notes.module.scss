@@ -1,0 +1,183 @@
+/* Notes.module.scss */
+@import '/src/styles/vars';
+
+.pageOffset {
+    // Збільшено відступ, щоб точно опустити вміст під Navbar
+    padding-top: 120px; /* Збільшено з 100px */
+    min-height: 100vh;
+    box-sizing: border-box; 
+    background-color: #f0f0f0; 
+}
+
+// --- Стилі для Основного Контейнера ---
+
+.notesContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 0 auto 50px auto; 
+    max-width: 1000px;
+    width: 100%;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    h2 {
+        color: $darkBackColor;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid $lightBackColor;
+    }
+}
+
+// --- Стилі для Списку Нотаток та Окремих Елементів ---
+
+.notesList {
+    margin-top: 10px;
+    display: grid;
+    gap: 15px; // Відстань між нотатками
+    // Можна використовувати grid для адаптивного розташування
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+}
+
+.noteItem {
+    background-color: #f7f7f7; // Світліший фон для нотатки
+    padding: 20px;
+    border-left: 5px solid $greenColor; // Акцентний колір зліва
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%; // Для рівномірної висоти у grid/flex
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.noteTitle {
+    font-size: 1.2rem;
+    color: $darkBackColor;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.noteDate {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 5px;
+}
+
+.noteContent {
+    font-size: 1rem;
+    color: #444;
+    white-space: pre-wrap; // Зберігає форматування тексту
+    word-wrap: break-word; // Запобігає виходу за межі
+}
+
+// --- Стан Завантаження та Помилки ---
+
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: $greenColor;
+    padding: 50px 0;
+}
+
+.error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: red;
+    padding: 50px 0;
+    background-color: #ffe0e0;
+    border: 1px solid red;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.emptyState {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 40px 0;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+// --- Додаткові елементи (якщо додасте створення нотатки) ---
+
+.addNoteButton {
+    align-self: flex-start; // Кнопка притиснута до лівого краю
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: $greenColor;
+    color: $whiteMainTextColor;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: darken($greenColor, 10%);
+    }
+}
+
+.createForm {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    resize: vertical;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: $lightBackColor;
+        outline: none;
+    }
+}
+
+.errorText {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.addNoteButton {
+    align-self: flex-start; 
+    margin-top: 10px; // Зменшено відступ, оскільки він тепер всередині .createForm
+    padding: 10px 20px;
+    background-color: $greenColor;
+    color: $whiteMainTextColor;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, opacity 0.3s;
+
+    &:hover {
+        background-color: darken($greenColor, 10%);
+    }
+    
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+}

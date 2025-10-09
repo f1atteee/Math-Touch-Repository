@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { SECTION_GET_BY_TYPE_URL, USER_GET_BY_ID_URL } from "@src/config/api";
 import { PiCubeTransparentLight } from "react-icons/pi";
 import { GoGraph } from "react-icons/go";
-import { CgPhone } from "react-icons/cg";
+import { CgNotes, CgPhone } from "react-icons/cg";
 import { MdOutlineAssessment, MdVideogameAsset } from "react-icons/md";
 import s from "./NavBar.module.scss";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
@@ -99,24 +99,34 @@ function NavBar() {
             fetchUrl={SECTION_GET_BY_TYPE_URL}
             updateExpanded={updateExpanded}
           />
+          
+          {/* ЗМІНЕНО: НМТ Минулих Років */}
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link
-              href={lastyear} // Використовуємо href для відкриття посилання
-              target="_blank" // Відкриваємо посилання у новій вкладці
-              rel="noopener noreferrer" // Забезпечуємо безпеку
-              onClick={() => updateExpanded(false)} // Закриваємо меню
+              href={lastyear} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              onClick={() => updateExpanded(false)}
             >
-              <MdVideogameAsset style={{ marginBottom: "2px" }} /> Минулорічні НМТ
+              <MdVideogameAsset style={{ marginBottom: "2px" }} /> НМТ Минулих Років
             </Nav.Link>
           </Nav.Item>
+          
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
-              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Авторські тести
+              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Мій Конструктор Тестів
             </Nav.Link>
           </Nav.Item>
+
+          <Nav.Item style={{ marginLeft: "1em" }}>
+            <Nav.Link as={Link} to="/notate" onClick={() => updateExpanded(false)}>
+              <CgNotes style={{ marginBottom: "2px" }} /> Нотатки
+            </Nav.Link>
+          </Nav.Item>
+          
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/contact" onClick={() => updateExpanded(false)}>
-              <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
+              <CgPhone style={{ marginBottom: "2px" }} /> Зворотний Зв'язок
             </Nav.Link>
           </Nav.Item>
           <div className={s.login_container}>

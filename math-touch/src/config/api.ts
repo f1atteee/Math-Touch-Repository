@@ -1,9 +1,8 @@
-// Centralized API endpoints
-
 export const AUTH_API = "https://localhost:7007";
 export const GENERAL_API = "https://localhost:7221";
 export const TESTING_API = "https://localhost:7010";
 export const CONTACT_API = "http://localhost:8083";
+export const NOTES_API = "https://localhost:7056";
 
 // Auth/User
 export const USER_LOGIN_URL = `${AUTH_API}/api/User/Login`;
@@ -27,4 +26,7 @@ export const TESTING_HISTORY_URL = `${TESTING_API}/api/testing/history`;
 // Contact
 export const CONTACT_SEND_URL = `${CONTACT_API}/api/Contact/send`;
 
-
+// Notes
+export const USER_NOTES_URL = `${NOTES_API}/api/notes`;
+export const USER_NOTES_BY_DATE_URL = (date: string) => `${NOTES_API}/api/notes/${date}`;
+export const NOTE_BY_ID_URL = (id: number) => `${NOTES_API}/api/notes/${id}`;
