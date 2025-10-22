@@ -83,7 +83,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (!resp.ok) {
                 throw new Error('Failed to update user');
             }
-            // API returns 200 OK without body
             const updated: UserDto = { ...user, ...changes } as UserDto;
             setUser(updated);
             return updated;

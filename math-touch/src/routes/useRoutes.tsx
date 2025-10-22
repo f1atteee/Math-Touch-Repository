@@ -27,7 +27,6 @@ export const useRoutes = (isAuthorized: boolean) => {
                 <Route path="/owntest/*" element={<OwnTests />} /> 
                 <Route path="/notate" element={<Notes />} /> 
 
-                {/* Універсальний компонент для Algebra */}
                 <Route
                     path="/algebra/:id"
                     element={
@@ -38,7 +37,6 @@ export const useRoutes = (isAuthorized: boolean) => {
                     }
                 />
 
-                {/* Універсальний компонент для Geometry */}
                 <Route
                     path="/geometry/:id"
                     element={

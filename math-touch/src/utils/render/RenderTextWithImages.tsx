@@ -20,25 +20,22 @@ export const renderTextWithImages = (text: string, images?: Image[]): JSX.Elemen
     const matchIndex = match.index;
     const photoIndex = Number(match[1]);
 
-    // Додаємо текст перед фото
     if (lastIndex < matchIndex) {
       parts.push(<p key={`text-before-${lastIndex}`}>{text.substring(lastIndex, matchIndex)}</p>);
     }
 
-    // Знаходимо зображення по ID
     const image = images.find((img) => img.id === photoIndex);
     if (image && image.data) {
-      // Перевірка правильності base64
       parts.push(
         <React.Fragment key={`image-${photoIndex}`}>
-          <br /> {/* Додаємо новий рядок перед зображенням */}
+          <br />
           <img
             key={`image-${photoIndex}`}
             src={image.data}
             alt={`ФОТО${photoIndex}`}
             style={{ maxWidth: "100%", margin: "10px 0" }}
           />
-          <br /> {/* Додаємо новий рядок після зображення */}
+          <br />
         </React.Fragment>
       );
     } else {
@@ -48,10 +45,9 @@ export const renderTextWithImages = (text: string, images?: Image[]): JSX.Elemen
     lastIndex = regex.lastIndex;
   }
 
-  // Додаємо залишок тексту
   if (lastIndex < text.length) {
     parts.push(<p key={`text-after-${lastIndex}`}>{text.substring(lastIndex)}</p>);
   }
 
-  return <>{parts}</>; // ⬅️ Фрагмент, а не <p>
+  return <>{parts}</>;
 };

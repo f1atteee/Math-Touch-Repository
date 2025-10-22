@@ -37,7 +37,6 @@ const Register = ({ show, handleClose }: { show: boolean; handleClose: () => voi
         setError(null); 
         setIsLoading(true); 
 
-        // Registration is anonymous per API
         const hashedPassword = await hashPassword();
 
         try {

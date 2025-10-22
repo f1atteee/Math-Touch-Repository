@@ -40,8 +40,6 @@ const ProfileModal = ({ show, handleClose }: Props) => {
         }
     };
 
-    const telegramLink = "https://t.me/MathTouchTestBot?start=connect";
-
     return (
         <Modal show={show} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
@@ -83,12 +81,6 @@ const ProfileModal = ({ show, handleClose }: Props) => {
                         <Form.Group className={s.group} controlId="pm_teacher">
                             <Form.Check type="checkbox" label="Я вчитель" checked={form.isTeacher} onChange={(e) => setField('isTeacher', e.target.checked)} />
                         </Form.Group>
-
-                        <div className={s.actions}>
-                            <a href={telegramLink} target="_blank" rel="noreferrer" className={s.telegram_link}>
-                                Підключити Telegram-бота
-                            </a>
-                        </div>
                     </Form>
                 )}
             </Modal.Body>
@@ -101,5 +93,3 @@ const ProfileModal = ({ show, handleClose }: Props) => {
 };
 
 export default ProfileModal;
-
-

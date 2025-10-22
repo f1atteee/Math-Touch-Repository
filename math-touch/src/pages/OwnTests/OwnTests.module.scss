@@ -1,18 +1,15 @@
-/* OwnTests.module.scss */
-@import '/src/styles/vars'; // Імпорт змінних з NavBar
-
-// --- Загальна Структура та Навігація ---
+@import '/src/styles/vars';
 
 .wrapper {
     padding: 20px;
-    background-color: $whiteMainTextColor; // Використовуйте фоновий колір з вашої теми
+    background-color: $whiteMainTextColor;
     min-height: 100vh;
 }
 
 .header {
     margin-bottom: 20px;
     h2 {
-        color: $darkBackColor; // Основний колір заголовків
+        color: $darkBackColor;
         border-bottom: 2px solid $lightBackColor;
         padding-bottom: 5px;
         display: inline-block;
@@ -36,15 +33,12 @@
     transition: all 0.3s ease;
     font-weight: 500;
     
-    // Стиль активного посилання (якщо використовуєте NavLink з activeClassName)
-    &[aria-current="page"], // Стиль для активного посилання в React Router v6
+    &[aria-current="page"],
     &:hover {
         background-color: $greenColor;
         color: $whiteMainTextColor;
     }
 }
-
-// --- Стилі для Форми та Редактора (QuestionEditorPage) ---
 
 .field {
     margin-bottom: 20px;
@@ -89,8 +83,6 @@
     }
 }
 
-// --- Стилі для Списку Питань (Таблиця) ---
-
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -132,8 +124,6 @@
         }
     }
 }
-
-// --- Стилі для Тестування (TestTakingPage) ---
 
 .testWrapper {
     margin-top: 20px;
@@ -193,7 +183,6 @@
 
     input[type="radio"], input[type="checkbox"] {
         margin-right: 10px;
-        // Налаштування стилю радіо/чекбокса
     }
 
     &:hover {
@@ -205,8 +194,6 @@
     margin-top: 30px;
     text-align: right;
 }
-
-// --- Стилі для Відображення Результатів ---
 
 .resultSummary {
     margin-top: 30px;

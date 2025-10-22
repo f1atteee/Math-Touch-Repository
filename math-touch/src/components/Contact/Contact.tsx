@@ -3,6 +3,7 @@ import {
     Row, Col, 
     Toast, ToastContainer
 } from "react-bootstrap";
+import { CONTACT_SEND_URL } from "@src/config/api";
 import s from "./Contact.module.scss";
 
 interface Toast {
@@ -17,8 +18,10 @@ function Contact() {
     const [message, setMessage] = useState("");
     const [attempts, setAttempts] = useState(0);
     const [isCooldown, setIsCooldown] = useState(false);
-    const [cooldownTime, setCooldownTime] = useState(15); // Час очікування в секундах
+    const [cooldownTime, setCooldownTime] = useState(15);
     const [toasts, setToasts] = useState<Toast[]>([]);
+
+    const authToken = localStorage.getItem('access_token'); 
 
     const addToast = (message: string, variant: string) => {
         const id = Date.now();
@@ -26,8 +29,8 @@ function Contact() {
         setToasts((currentToasts) => {
             const newToasts = [...currentToasts, { id, message, variant }];
     
-            if (newToasts.length > 4) { // Обмеження до 4 сповіщень
-                newToasts.shift(); // Видаляємо найстаріше сповіщення
+            if (newToasts.length > 4) {
+                newToasts.shift();
             }
     
             return newToasts;
@@ -37,7 +40,7 @@ function Contact() {
             setToasts((currentToasts) => 
                 currentToasts.filter(toast => toast.id !== id)
             );
-        }, 5000); // 5 секунд на розчинення
+        }, 5000);
     };
 
     useEffect(() => {
@@ -48,16 +51,16 @@ function Contact() {
                 setCooldownTime(prevTime => {
                     if (prevTime <= 1) {
                         setIsCooldown(false);
-                        setAttempts(0); // Скидання спроб після завершення таймера
+                        setAttempts(0);
                         clearInterval(interval);
-                        return 15; // Скидання часу очікування
+                        return 15;
                     }
                     return prevTime - 1;
                 });
-            }, 1000); // Зменшення кожну секунду
+            }, 1000);
         }
 
-        return () => clearInterval(interval); // Очистка інтервалу при розмонтуванні
+        return () => clearInterval(interval);
     }, [isCooldown]);
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
@@ -71,16 +74,17 @@ function Contact() {
         if (attempts >= 3) {
             setIsCooldown(true);
             setCooldownTime(15);
-            setAttempts(attempts + 1); // Обов'язкове збільшення спроби перед таймером
+            setAttempts(attempts + 1);
             return;
         }
    
         const formData = { name, email, message };
    
         try {
-            const response = await fetch('https://localhost:7242/api/Contact/send', {
+            const response = await fetch(CONTACT_SEND_URL, {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${authToken}`, 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData), 

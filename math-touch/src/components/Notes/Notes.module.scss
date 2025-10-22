@@ -1,15 +1,11 @@
-/* Notes.module.scss */
 @import '/src/styles/vars';
 
 .pageOffset {
-    // Збільшено відступ, щоб точно опустити вміст під Navbar
-    padding-top: 120px; /* Збільшено з 100px */
+    padding-top: 120px;
     min-height: 100vh;
     box-sizing: border-box; 
     background-color: #f0f0f0; 
 }
-
-// --- Стилі для Основного Контейнера ---
 
 .notesContainer {
     display: flex;
@@ -30,24 +26,21 @@
     }
 }
 
-// --- Стилі для Списку Нотаток та Окремих Елементів ---
-
 .notesList {
     margin-top: 10px;
     display: grid;
-    gap: 15px; // Відстань між нотатками
-    // Можна використовувати grid для адаптивного розташування
+    gap: 15px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
 }
 
 .noteItem {
-    background-color: #f7f7f7; // Світліший фон для нотатки
+    background-color: #f7f7f7;
     padding: 20px;
-    border-left: 5px solid $greenColor; // Акцентний колір зліва
+    border-left: 5px solid $greenColor;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
-    height: 100%; // Для рівномірної висоти у grid/flex
+    height: 100%;
 
     &:hover {
         transform: translateY(-3px);
@@ -74,11 +67,9 @@
 .noteContent {
     font-size: 1rem;
     color: #444;
-    white-space: pre-wrap; // Зберігає форматування тексту
-    word-wrap: break-word; // Запобігає виходу за межі
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
-
-// --- Стан Завантаження та Помилки ---
 
 .loading {
     text-align: center;
@@ -108,10 +99,8 @@
     margin: 20px;
 }
 
-// --- Додаткові елементи (якщо додасте створення нотатки) ---
-
 .addNoteButton {
-    align-self: flex-start; // Кнопка притиснута до лівого краю
+    align-self: flex-start;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: $greenColor;
@@ -161,7 +150,7 @@
 
 .addNoteButton {
     align-self: flex-start; 
-    margin-top: 10px; // Зменшено відступ, оскільки він тепер всередині .createForm
+    margin-top: 10px;
     padding: 10px 20px;
     background-color: $greenColor;
     color: $whiteMainTextColor;

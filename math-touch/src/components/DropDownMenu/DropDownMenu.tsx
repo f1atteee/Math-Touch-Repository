@@ -95,7 +95,7 @@ const DropDownMenu = ({
 
   const handleTopicClick = (topic: TopicItem) => {
     const route = typeMath === 1 ? `/algebra/${topic.idParagraph}` : `/geometry/${topic.idParagraph}`;
-    navigate(route, { state: { topicName: topic.topic } }); // Передаємо назву підтеми
+    navigate(route, { state: { topicName: topic.topic } });
     updateExpanded(false);
   };
 

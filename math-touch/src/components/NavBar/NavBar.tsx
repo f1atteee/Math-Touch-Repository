@@ -100,7 +100,6 @@ function NavBar() {
             updateExpanded={updateExpanded}
           />
           
-          {/* ЗМІНЕНО: НМТ Минулих Років */}
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link
               href={lastyear} 

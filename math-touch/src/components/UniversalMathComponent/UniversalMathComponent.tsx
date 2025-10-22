@@ -7,13 +7,13 @@ import s from "./UniversalMathComponent.module.scss";
 interface MathData {
   info: string;
   definition: string;
-  images?: { id: number; data: string }[]; // Тільки для Геометрії
+  images?: { id: number; data: string }[];
 }
 
 interface UniversalMathComponentProps {
-  typeMath: number; // 1 для Алгебри, 2 для Геометрії
-  fetchUrl: string; // URL для основного запиту
-  fetchImagesUrl?: string; // URL для запиту зображень (тільки для Геометрії)
+  typeMath: number;
+  fetchUrl: string;
+  fetchImagesUrl?: string;
 }
 
 const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
@@ -23,7 +23,7 @@ const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
-  const { topicName } = location.state || {}; // Отримуємо назву підтеми
+  const { topicName } = location.state || {};
 
   const [data, setData] = useState<MathData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +32,7 @@ const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
   const parsedId = useMemo(() => (id ? Number(id) : null), [id]);
 
   const fetchImages = useCallback(async (themeId: number) => {
-    if (!fetchImagesUrl) return []; // Якщо URL для зображень не заданий, повертаємо порожній масив
+    if (!fetchImagesUrl) return [];
 
     try {
       const token = localStorage.getItem("access_token");
@@ -102,7 +102,6 @@ const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
 
       let images = [];
       if (typeMath === 2 && fetchImagesUrl) {
-        // Завантажуємо зображення тільки для Геометрії
         images = await fetchImages(parsedId);
       }
 
@@ -125,7 +124,6 @@ const UniversalMathComponent: React.FC<UniversalMathComponentProps> = ({
 
   return (
     <div className={s.container}>
-      {/* Виводимо назву підтеми, якщо вона є, інакше показуємо тип математики */}
       <h1>{topicName || (typeMath === 1 ? "Алгебра" : "Геометрія")}</h1>
       {loading && <p>Завантаження...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

@@ -1,10 +1,10 @@
 @import "../../styles/vars";
 
 .wave {
-    animation-name: wave_animation; /* Refers to the name of your @keyframes element below */
-    animation-duration: 2.1s; /* Change to speed up or slow down */
-    animation-iteration-count: infinite; /* Never stop waving :) */
-    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    animation-name: wave_animation;
+    animation-duration: 2.1s;
+    animation-iteration-count: infinite;
+    transform-origin: 70% 70%;
     display: inline-block;
 }
   
@@ -46,10 +46,10 @@ padding-top: 30px;
 }
 
 .home_content {
-    display: flex; /* Використовуємо flexbox */
-    flex-direction: column; /* Розташовуємо елементи вертикально */
-    justify-content: space-between; /* Розподіляємо контент і футер */
-    min-height: 100vh; /* Займаємо всю висоту вікна */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
     padding: 9rem 0 2rem;
     color: $backMainTextColor;
     text-align: left;
@@ -80,7 +80,7 @@ font-size: 2.5em;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
     position: relative;
-    z-index: 1; /* Забезпечує, що кнопки знаходяться над іншими елементами */
+    z-index: 1;
     pointer-events: auto; 
 }
 
@@ -94,7 +94,7 @@ font-size: 2.5em;
 .exploreButton {
     margin-left: 10px;
     position: relative;
-    z-index: 1; /* Забезпечує, що кнопки знаходяться над іншими елементами */
+    z-index: 1;
     pointer-events: auto; 
 }
 

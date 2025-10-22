@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Register from "../../components/Register/Register"; // Імплементуйте шлях до вашого компонента реєстрації
+import Register from "../../components/Register/Register";
 import s from "./Auth.module.scss";
 import Logo from "@src/components/Logo/Logo";
 import { useAuth } from '../../context/AuthContext';
@@ -11,7 +11,7 @@ const Auth = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [showRegister, setShowRegister] = useState(false);
-    const { setIsAuthorized } = useAuth(); // Use the context here
+    const { setIsAuthorized } = useAuth();
 
     function validateForm() {
         return login.length > 0 && password.length > 0;
