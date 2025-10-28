@@ -8,7 +8,7 @@ import { SECTION_GET_BY_TYPE_URL, USER_GET_BY_ID_URL } from "@src/config/api";
 import { PiCubeTransparentLight } from "react-icons/pi";
 import { GoGraph } from "react-icons/go";
 import { CgNotes, CgPhone } from "react-icons/cg";
-import { MdOutlineAssessment, MdVideogameAsset } from "react-icons/md";
+import { MdOutlineAssessment, MdVideogameAsset, MdOutlineAccountCircle } from "react-icons/md";
 import s from "./NavBar.module.scss";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import ProfileModal from "@src/components/Profile/ProfileModal";
@@ -129,22 +129,36 @@ function NavBar() {
             </Nav.Link>
           </Nav.Item>
           <div className={s.login_container}>
-            <div className={s.login_div}>
               {!isAuthorized ? (
-                <button className={s.login_button} onClick={() => navigate('/auth')}>
-                  Login
-                </button>
+                  <button 
+                      className={s.login_button_style} 
+                      onClick={() => {
+                          navigate('/auth');
+                          updateExpanded(false);
+                      }}
+                  >
+                      <MdOutlineAccountCircle style={{ marginBottom: "2px", fontSize: "1.2em" }} /> 
+                      Login
+                  </button>
               ) : (
-                <button className={s.login_button} onClick={() => setShowProfile(true)}>
-                  {user?.userName || userName || 'Profile'}
-                </button>
+                  <>
+                      <button 
+                          className={s.profile_link} 
+                          onClick={() => {
+                              setShowProfile(true);
+                              updateExpanded(false);
+                          }}
+                      >
+                          <MdOutlineAccountCircle style={{ marginBottom: "2px", fontSize: "1.3em" }} /> 
+                          {' '}
+                          {user?.userName ||  userName || 'Профіль'}
+                      </button>
+                      
+                      <button className={s.logout_button} onClick={handleLogout}>
+                          Вихід
+                      </button>
+                  </>
               )}
-            </div>
-            {isAuthorized && (
-              <button className={s.logout_button} onClick={handleLogout}>
-                Вихід
-              </button>
-            )}
           </div>
         </Nav>
       </Navbar.Collapse>

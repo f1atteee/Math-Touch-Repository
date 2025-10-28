@@ -147,6 +147,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 15px;
+    margin-left: 10px;
 }
 
 .qScore {
@@ -159,7 +160,9 @@
 }
 
 .qText {
+    font-weight: 500;
     flex: 1;
+    padding: 5px 10px;
     margin-right: 20px;
     font-size: 1.1rem;
     line-height: 1.6;
