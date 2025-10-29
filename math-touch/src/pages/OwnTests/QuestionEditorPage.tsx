@@ -130,7 +130,6 @@ export default function QuestionEditorPage() {
     async function saveQuestion() {
         if (!editing) return;
         
-        // --- ВАЛІДАЦІЯ ---
         if (!editing.text.trim()) {
             setError("Текст питання не може бути порожнім.");
             return;
@@ -214,11 +213,9 @@ export default function QuestionEditorPage() {
         }
     }
 
-    // --- РЕНДЕРИНГ ---
-
     return (
         <div className={s.wrapper}>
-            <h2>Редагування Питань</h2>
+            <h2>Редагування питань</h2>
             {error && <div className={s.error}>⚠️ Помилка: {error}</div>}
 
             <div className={s.controls}>

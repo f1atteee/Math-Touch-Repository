@@ -110,15 +110,15 @@ export default function TestTakingPage() {
             {error && <div className={s.error}>{error}</div>}
             <Form className={s.inlineForm}>
                 <Form.Group>
-                    <Form.Label>Section Id</Form.Label>
+                    <Form.Label>Ідентифікатор тесту</Form.Label>
                     <Form.Control type="number" value={sectionId} onChange={(e) => setSectionId(Number(e.target.value))} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Section Name</Form.Label>
+                    <Form.Label>Оберіть: Алгебра або Геометрія</Form.Label>
                     <Form.Control type="text" value={sectionName} onChange={(e) => setSectionName(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Target Score</Form.Label>
+                    <Form.Label>Максимальна кількість балів</Form.Label>
                     <Form.Control type="number" value={targetScore} onChange={(e) => setTargetScore(Number(e.target.value))} />
                 </Form.Group>
                 <Button onClick={startTest}>Почати тест</Button>

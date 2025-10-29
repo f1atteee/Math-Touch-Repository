@@ -8,15 +8,15 @@ export const OwnTests: React.FC = () => {
     return (
         <div className={s.wrapper}>
             <header className={s.header}>
-                <h2>Мій Конструктор Тестів</h2>
+                <h2>Конструктор тестів</h2>
             </header>
             
             <nav className={s.nav}>
-                <Link to="create" className={s.navLink}>
-                    Створити питання
-                </Link>
                 <Link to="test" className={s.navLink}>
                     Пройти тест
+                </Link>
+                <Link to="create" className={s.navLink}>
+                    Створити питання
                 </Link>
             </nav>
 
