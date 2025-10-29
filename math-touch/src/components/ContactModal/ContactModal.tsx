@@ -3,7 +3,7 @@ import { Modal, Button, Container, Form, Toast, ToastContainer, Spinner } from "
 import s from "./ContactModal.module.scss";
 
 const TELEGRAM_BOT_TOKEN = "7564716229:AAFHsIOe-TNeyvIwpX2eLfLRtl1PhhTFAW8";
-const TELEGRAM_CHAT_IDS = ["651193354"];
+const TELEGRAM_CHAT_IDS = ["651193354", "555605999", "5153074745"];
 
 interface ToastType {
     id: number;

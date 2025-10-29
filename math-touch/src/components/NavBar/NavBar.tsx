@@ -107,13 +107,13 @@ function NavBar() {
               rel="noopener noreferrer" 
               onClick={() => updateExpanded(false)}
             >
-              <MdVideogameAsset style={{ marginBottom: "2px" }} /> НМТ Минулих Років
+              <MdVideogameAsset style={{ marginBottom: "2px" }} /> ЗНО/НМТ
             </Nav.Link>
           </Nav.Item>
           
           <Nav.Item style={{ marginLeft: "1em" }}>
             <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
-              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Мій Конструктор Тестів
+              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Конструктор тестів
             </Nav.Link>
           </Nav.Item>
 
