@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { Modal, Button, Container, Form, Toast, ToastContainer, Spinner } from "react-bootstrap";
 import s from "./ContactModal.module.scss";
-import { CONTACT_SEND_URL } from "@src/config/api";
+
+const TELEGRAM_BOT_TOKEN = "7564716229:AAFHsIOe-TNeyvIwpX2eLfLRtl1PhhTFAW8";
+const TELEGRAM_CHAT_IDS = ["651193354"];
 
 interface ToastType {
     id: number;
@@ -18,8 +20,6 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
     const [cooldownTime, setCooldownTime] = useState(15);
     const [toasts, setToasts] = useState<ToastType[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const authToken = localStorage.getItem('access_token'); 
 
     const addToast = useCallback((message: string, variant: string) => {
         const id = Date.now();
@@ -56,7 +56,11 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        if (!name.trim() || !email.trim() || !message.trim()) {
+        const trimmedName = name.trim();
+        const trimmedEmail = email.trim();
+        const trimmedMessage = message.trim();
+
+        if (!trimmedName || !trimmedEmail || !trimmedMessage) {
             addToast("Заповни усі поля.", 'warning');
             return;
         }
@@ -74,34 +78,60 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
         }
         
         setIsSubmitting(true);
-    
-        const formData = { name, email, message };
-    
+        
+        const telegramMessageText = `📧 *Нове повідомлення зворотного зв'язку*\n\n` + 
+                                    `👤 *Ім'я:* ${trimmedName}\n` + 
+                                    `✉️ *Email:* ${trimmedEmail}\n\n` + 
+                                    `📝 *Повідомлення:*\n${trimmedMessage}`;
+        
+        let successCount = 0;
+        let errorMessages: string[] = [];
+
         try {
-            const response = await fetch(CONTACT_SEND_URL, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`, 
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData), 
+            const sendPromises = TELEGRAM_CHAT_IDS.map(async (chatId) => {
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                const payload = {
+                    chat_id: chatId,
+                    text: telegramMessageText,
+                    parse_mode: 'Markdown',
+                };
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+            
+                    const data = await response.json();
+            
+                    if (response.ok && data.ok) {
+                        successCount++;
+                    } else {
+                        errorMessages.push(`Chat ID ${chatId}: ${data.description || 'Невідома помилка'}`);
+                    }
+                } catch (networkError) {
+                    errorMessages.push(`Chat ID ${chatId}: Мережева помилка.`);
+                }
             });
-    
-            if (response.ok) {
+
+            await Promise.all(sendPromises);
+
+            if (successCount > 0) {
                 addToast("Повідомлення успішно надіслано 😊", 'success');
                 setName(''); setEmail(''); setMessage('');
                 setAttempts(0);
                 handleClose();
             } else {
                 setAttempts(prev => prev + 1);
-                const errorData = await response.json();
-                addToast(`Failed to send message: ${errorData.message || response.statusText}`, 'danger');
+                const combinedError = errorMessages.join('; ');
+                addToast(`Помилка надсилання: ${combinedError || 'Жодне повідомлення не надіслано.'}`, 'danger');
             }
         } catch (error) {
             setAttempts(prev => prev + 1);
-            addToast(`Error: ${message || 'Network error'}`, 'danger');
+            addToast(`Error: Непередбачена помилка при відправці.`, 'danger');
         } finally {
-            setIsSubmitting(false); // Кінець відправки
+            setIsSubmitting(false);
         }
     };
 
@@ -116,8 +146,8 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="p-0">
-                    <Container fluid className={s.contact_section}> {/* Використовуємо fluid та прибираємо Col/Row, якщо форма займає всю ширину */}
-                        <div className={s.contact_form}> {/* Замість <Col> */}
+                    <Container fluid className={s.contact_section}>
+                        <div className={s.contact_form}>
                             <Form onSubmit={handleSubmit} >
                                 <Form.Group controlId="formName" className="mb-3">
                                     <Form.Label className={s.label}>Ім'я</Form.Label>
@@ -148,7 +178,7 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
                                     <Form.Label className={s.label}>Текст повідомлення</Form.Label>
                                     <Form.Control
                                         as="textarea"
-                                        rows={4} // Зменшимо трохи висоту
+                                        rows={4}
                                         placeholder="Ваше повідомлення..."
                                         className={s.input}
                                         value={message}
@@ -159,7 +189,7 @@ function ContactModal({ show, handleClose }: { show: boolean; handleClose: () =>
                                 <Button 
                                     type="submit" 
                                     className={s.sumbit_button}
-                                    disabled={isSubmitDisabled} // Використовуємо розрахунковий стан
+                                    disabled={isSubmitDisabled}
                                 >
                                     {isSubmitting ? (
                                         <>

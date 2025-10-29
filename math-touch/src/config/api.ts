@@ -1,8 +1,6 @@
-//export const AUTH_API = "http://localhost:8081";
-export const AUTH_API = "https://localhost:7007";
+export const AUTH_API = "http://localhost:8081";
 export const GENERAL_API = "http://localhost:8082";
-//export const TESTING_API = "http://localhost:8084";
-export const TESTING_API = "https://localhost:7010";
+export const TESTING_API = "http://localhost:8084";
 export const CONTACT_API = "http://localhost:8083";
 export const NOTES_API = "http://localhost:8085";
 
