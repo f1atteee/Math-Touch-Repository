@@ -22,7 +22,7 @@
 
 .Login {
     width: 560px;
-    background: rgba( 255, 255, 255, 0.15 );
+    background: rgba(39, 38, 38, 0.15);
     box-shadow: 0 8px 32px 0 rgba(43, 70, 52, 0.37);
     backdrop-filter: blur( 4.5px );
     -webkit-backdrop-filter: blur( 4.5px );
@@ -33,7 +33,7 @@
 }
 
 button.btn {
-    background-color: #222222;
+    background-color: $whiteMainTextColor;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -43,7 +43,7 @@ button.btn {
 }
 .formTitle{
     font-size: 30px;
-    color: #000000;
+    color: $whiteMainTextColor;
     line-height: 1.2;
     text-transform: uppercase;
     text-align: center;
@@ -59,9 +59,9 @@ button.btn {
     height: 45px;
     margin: 10px 0;
 }
-label.form-label {
+.formLabel {
     font-size: 13px;
-    color: #555;
+    color: $whiteMainTextColor;
     line-height: 1.4;
     text-transform: uppercase;
 }
@@ -92,10 +92,10 @@ label.form-label {
     text-align: center;
     display: inline-block;
     line-height: 1.5;
-    transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
+    transition: background-color 0.3s ease;
   
     &:hover {
-      background-color: lighten($greenColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
+      background-color: lighten($greenColor, 20%);
     }
 }
 
@@ -105,7 +105,7 @@ label.form-label {
 }
 
 .registerLink .btn-link {
-    color: $lightBackColor; // або інший колір, який ви хочете
+    color: $lightBackColor;
     text-decoration: none;
     font-size: 16px;
 
@@ -117,7 +117,7 @@ label.form-label {
 
 .logoContainer {
     display: flex;
-    justify-content: center; /* Центрує зображення по горизонталі */
-    align-items: center; /* Центрує зображення по вертикалі (якщо потрібно) */
-    height: 100%; /* Висота контейнера (можна змінити відповідно до ваших потреб) */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

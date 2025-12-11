@@ -22,14 +22,6 @@ CREATE TABLE type_math (
     name VARCHAR(50)
 );
 
-CREATE TABLE general_info (
-    ID SERIAL PRIMARY KEY,
-    id_type_page INT NOT NULL REFERENCES type_pages(ID),
-    id_type_math INT REFERENCES type_math(ID),
-    topic_of_page TEXT,
-    id_paragraph INT
-);
-
 CREATE TABLE algebra (
     ID SERIAL PRIMARY KEY,
     info TEXT,

@@ -11,10 +11,10 @@ function Footer() {
     <div className={s.footer}>
       <Row>
         <Col md="6" className={s.copywright}>
-          <h3>Designed and Developed by Kravets' Devs</h3>
+          <h3>Розроблено командою Kravets Devs</h3>
         </Col>
         <Col md="3" className={s.copywright}>
-          <h3>Copyright © {year}</h3>
+          <h3>© {year} Kravets Devs. Усі права захищено</h3>
         </Col>
         <Col md="2" className={s.body}>
           <a

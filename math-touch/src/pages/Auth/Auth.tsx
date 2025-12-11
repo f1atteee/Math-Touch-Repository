@@ -1,16 +1,17 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Register from "../../components/Register/Register"; // Імплементуйте шлях до вашого компонента реєстрації
+import Register from "../../components/Register/Register";
 import s from "./Auth.module.scss";
 import Logo from "@src/components/Logo/Logo";
 import { useAuth } from '../../context/AuthContext';
 import CryptoJS from 'crypto-js';
+import { USER_LOGIN_URL } from '@src/config/api';
 
 const Auth = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [showRegister, setShowRegister] = useState(false);
-    const { setIsAuthorized } = useAuth(); // Use the context here
+    const { setIsAuthorized } = useAuth();
 
     function validateForm() {
         return login.length > 0 && password.length > 0;
@@ -25,7 +26,7 @@ const Auth = () => {
         event.preventDefault();
         var hashPass = await hashPassword();
         try {
-            const response = await fetch('https://localhost:7007/api/User/Login', {
+            const response = await fetch(USER_LOGIN_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,8 +44,14 @@ const Auth = () => {
 
             const data = await response.json();
             if (data) {
-                localStorage.setItem('access_token', `${data.accesToken}`);
-                localStorage.setItem('user', `${data.user.id}`);
+                const token = data.accessToken || data.accesToken || data.token;
+                const userId = (data.user && (data.user.id || data.user.userId)) || data.userId || data.id;
+                if (token) {
+                    localStorage.setItem('access_token', String(token));
+                }
+                if (userId !== undefined && userId !== null) {
+                    localStorage.setItem('user', String(userId));
+                }
                 setIsAuthorized(true);
                 console.log('Logged in successfully, token saved to localStorage');
             } else {
@@ -61,10 +68,10 @@ const Auth = () => {
                 <div className={s.logoContainer}>
                     <Logo/>
                 </div>
-                <h1 className={s.formTitle}>Раді вітати Вас знову</h1>
+                <h1 className={s.formTitle}>Увійти</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="login">
-                        <Form.Label>Логін/пошта</Form.Label>
+                        <Form.Label className={s.formLabel}>Логін/пошта</Form.Label>
                         <Form.Control
                             autoFocus
                             type="text"
@@ -73,7 +80,7 @@ const Auth = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="password">
-                        <Form.Label>Пароль</Form.Label>
+                        <Form.Label className={s.formLabel}>Пароль</Form.Label>
                         <Form.Control
                             type="password"
                             value={password}
@@ -91,7 +98,7 @@ const Auth = () => {
                 </Form>
                 <div className={s.registerLink}>
                     <button className={s.buttonLogin} onClick={() => setShowRegister(true)}>
-                        Ти тут новенький ? Створи профіль
+                        Ти тут новенький ? Створити профіль
                     </button>
                 </div>
                 <Register show={showRegister} handleClose={() => setShowRegister(false)} />

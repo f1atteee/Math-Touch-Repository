@@ -1,23 +1,25 @@
 @import '/src/styles/vars';
 
 .footer {
-    overflow-x: hidden !important;
-    background-color: $darkBackColor;
-    bottom: 0;
-    padding-top: 10px;
-    padding-bottom: 8px;
-    height: 80px;
+  background-color: $darkBackColor;
+  color: $white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
 }
-.copywright {
-    text-align: center;
+  
+  .copywright {
+    font-size: 1rem;
     color: $white;
-    font-size: 9rem;
-}
-
-.body {
-    z-index: 1;
+  }
+  
+  .body {
     text-align: center;
-}
+    a {
+      font-size: 1.5rem;
+      color: $white;
+    }
+  }  
 
 @media (max-width: 1233px) {
     .copywright {

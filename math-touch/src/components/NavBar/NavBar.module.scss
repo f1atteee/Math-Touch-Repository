@@ -157,25 +157,50 @@ width: 100%;
   color: $whiteMainTextColor
 }
 
-.login_button {
-  background-color: $darkBackColor;
-  border-radius: 10px;
-  color: $white;
-  padding: 0.5rem 1rem;
+.login_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  gap: 10px;
+}
+
+.login_div {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: $darkBackColor;
+}
+
+.profile_link {
+  background-color: $white;
+  border: 1px solid $darkBackColor;
+  border-radius: 5px;
+  color: $darkBackColor;
+  padding: 5px 15px;
   font-size: 1rem;
-  text-align: center;
-  display: inline-block;
-  line-height: 1.5;
-  transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+    &:hover {
+      background-color: $darkBackColor;
+      color: $white;
+    }
+}
+
+.logout_button {
+  background-color: $white;
+  border: 1px solid $darkBackColor;
+  border-radius: 5px;
+  color: $darkBackColor;
+  padding: 5px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background-color: lighten($greenColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
+    background-color: $darkBackColor;
+    color: $white;
   }
 }
-
-.login_div{
-  position: absolute;
-  right: 5px;
-  margin: 0em 1.4em 0em;
-}
-

@@ -1,61 +1,69 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/img/logo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { SECTION_GET_BY_TYPE_URL, USER_GET_BY_ID_URL } from "@src/config/api";
 import { PiCubeTransparentLight } from "react-icons/pi";
 import { GoGraph } from "react-icons/go";
-import { CgPhone } from "react-icons/cg";
-import { 
-  MdOutlineAssessment,
-  MdVideogameAsset 
- } from "react-icons/md";
+import { CgNotes, CgPhone } from "react-icons/cg";
+import { MdOutlineAssessment, MdVideogameAsset, MdOutlineAccountCircle } from "react-icons/md";
 import s from "./NavBar.module.scss";
-
-interface MenuItem {
-  name: string;
-  link: string;
-}
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import ProfileModal from "@src/components/Profile/ProfileModal";
+import { useAuth } from "@src/context/AuthContext";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
-  const [algebraMenu, setAlgebraMenu] = useState<MenuItem[]>([]);
-  const [showDropdownGeometry, setShowDropdownGeometry] = useState(false);
-  const [showDropdownAlgebra, setShowDropdownAlgebra] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { isAuthorized, user } = useAuth();
+  const [showProfile, setShowProfile] = useState(false);
 
   const lastyear = "https://zno.osvita.ua/mathematics/";
 
-  const handleLoginClick = () => {
-    navigate("/auth");
-  };
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
-    
-    // Використання тестових даних для меню
-    const testMenu: MenuItem[] = [
-      { name: "Лінійні рівняння", link: "/algebra/linear-equations" },
-      { name: "Квадратні рівняння", link: "/algebra/quadratic-equations" },
-      { name: "Многочлени", link: "/algebra/polynomials" },
-      { name: "Матриці", link: "/algebra/matrices" },
-    ];
-    
-    setAlgebraMenu(testMenu);
-
-    return () => {
-      window.removeEventListener("scroll", scrollHandler);
-    };
+    return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
-    }
-  }
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem("user");
+      const token = localStorage.getItem("access_token");
+      if (!userId || !token) return;
+
+      try {
+        const response = await fetch(
+          USER_GET_BY_ID_URL(userId),
+          {
+            headers: {
+              accept: "text/plain",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        setUserName(data.userName);
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const scrollHandler = () => {
+    updateNavbar(window.scrollY >= 20);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/auth");
+    window.location.reload();
+  };
 
   return (
     <Navbar
@@ -64,104 +72,97 @@ function NavBar() {
       expand="md"
       className={navColour ? s.sticky : s.navbar}
     >
-        <Navbar.Brand href="/" className="d-flex">
-          <img src={logo} className={s.img_fluid_logo} alt="brand" />
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => {
-            updateExpanded(!expand);
-          }}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav defaultActiveKey="#home">
-            <Nav.Item
-              style={{ marginLeft: "1em", position: "relative" }}
-              onMouseEnter={() => setShowDropdownAlgebra(true)}
-              onMouseLeave={() => setShowDropdownAlgebra(false)}
+      <Navbar.Brand href="/" className="d-flex">
+        <img src={logo} className={s.img_fluid_logo} alt="brand" />
+      </Navbar.Brand>
+      <Navbar.Toggle
+        aria-controls="responsive-navbar-nav"
+        onClick={() => updateExpanded(!expand)}
+      >
+        <span></span><span></span><span></span>
+      </Navbar.Toggle>
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav>
+          <DropDownMenu
+            label="Алгебра"
+            icon={<GoGraph style={{ marginBottom: "2px" }} />}
+            typeMath={1}
+            pathPrefix="algebra"
+            fetchUrl={SECTION_GET_BY_TYPE_URL}
+            updateExpanded={updateExpanded}
+          />
+          <DropDownMenu
+            label="Геометрія"
+            icon={<PiCubeTransparentLight style={{ marginBottom: "2px" }} />}
+            typeMath={2}
+            pathPrefix="geometry"
+            fetchUrl={SECTION_GET_BY_TYPE_URL}
+            updateExpanded={updateExpanded}
+          />
+          
+          <Nav.Item style={{ marginLeft: "1em" }}>
+            <Nav.Link
+              href={lastyear} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              onClick={() => updateExpanded(false)}
             >
-              <Nav.Link as={Link} to="/algebra" onClick={() => updateExpanded(false)}>
-                <GoGraph style={{ marginBottom: "2px" }} /> Алгебра
-              </Nav.Link>
+              <MdVideogameAsset style={{ marginBottom: "2px" }} /> ЗНО/НМТ
+            </Nav.Link>
+          </Nav.Item>
+          
+          <Nav.Item style={{ marginLeft: "1em" }}>
+            <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
+              <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Конструктор тестів
+            </Nav.Link>
+          </Nav.Item>
 
-              {/* Підменю */}
-              {showDropdownAlgebra && (
-                <div className={s.dropdownMenu}>
-                  {algebraMenu.map((item, index) => (
-                    <Link
-                      key={index}
-                      to={item.link}
-                      className={s.dropdownMenuItem}
-                      onClick={() => updateExpanded(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+          <Nav.Item style={{ marginLeft: "1em" }}>
+            <Nav.Link as={Link} to="/notate" onClick={() => updateExpanded(false)}>
+              <CgNotes style={{ marginBottom: "2px" }} /> Нотатки
+            </Nav.Link>
+          </Nav.Item>
+          
+          <Nav.Item style={{ marginLeft: "1em" }}>
+            <Nav.Link as={Link} to="/contact" onClick={() => updateExpanded(false)}>
+              <CgPhone style={{ marginBottom: "2px" }} /> Зворотний Зв'язок
+            </Nav.Link>
+          </Nav.Item>
+          <div className={s.login_container}>
+              {!isAuthorized ? (
+                  <button 
+                      className={s.login_button_style} 
+                      onClick={() => {
+                          navigate('/auth');
+                          updateExpanded(false);
+                      }}
+                  >
+                      <MdOutlineAccountCircle style={{ marginBottom: "2px", fontSize: "1.2em" }} /> 
+                      Login
+                  </button>
+              ) : (
+                  <>
+                      <button 
+                          className={s.profile_link} 
+                          onClick={() => {
+                              setShowProfile(true);
+                              updateExpanded(false);
+                          }}
+                      >
+                          <MdOutlineAccountCircle style={{ marginBottom: "2px", fontSize: "1.3em" }} /> 
+                          {' '}
+                          {user?.userName ||  userName || 'Профіль'}
+                      </button>
+                      
+                      <button className={s.logout_button} onClick={handleLogout}>
+                          Вихід
+                      </button>
+                  </>
               )}
-            </Nav.Item>
-
-            <Nav.Item
-              style={{ marginLeft: "1em", position: "relative" }}
-              onMouseEnter={() => setShowDropdownGeometry(true)}
-              onMouseLeave={() => setShowDropdownGeometry(false)}
-            >
-              <Nav.Link as={Link} to="/geometry" onClick={() => updateExpanded(false)}>
-                <PiCubeTransparentLight style={{ marginBottom: "2px" }} /> Геометрія
-              </Nav.Link>
-
-              {/* Підменю */}
-              {showDropdownGeometry && (
-                <div className={s.dropdownMenu}>
-                  {algebraMenu.map((item, index) => (
-                    <Link
-                      key={index}
-                      to={item.link}
-                      className={s.dropdownMenuItem}
-                      onClick={() => updateExpanded(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </Nav.Item>
-            
-            <Nav.Item style={{ marginLeft: "1em" }}>
-              <Nav.Link as={Link} to={lastyear} onClick={() => updateExpanded(false)}>
-                <MdVideogameAsset style={{ marginBottom: "2px" }} /> Минулорічні НМТ
-              </Nav.Link>
-            </Nav.Item>
-            
-            <Nav.Item style={{ marginLeft: "1em" }}>
-              <Nav.Link as={Link} to="/owntest" onClick={() => updateExpanded(false)}>
-                <MdOutlineAssessment style={{ marginBottom: "2px" }} /> Власні тести
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item style={{ marginLeft: "1em" }}>
-              <Nav.Link as={Link} to="/about" onClick={() => updateExpanded(false)}>
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> Про нас
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item style={{ marginLeft: "1em" }}>
-              <Nav.Link as={Link} to="/contact" onClick={() => updateExpanded(false)}>
-                <CgPhone style={{ marginBottom: "2px" }} /> Зворотній зв'язок
-              </Nav.Link>
-            </Nav.Item>
-            
-            <div className={s.login_div}>
-              <button className={s.login_button} onClick={handleLoginClick}>
-                Login
-              </button>
-            </div>
-          </Nav>
-        </Navbar.Collapse>
+          </div>
+        </Nav>
+      </Navbar.Collapse>
+      <ProfileModal show={showProfile} handleClose={() => setShowProfile(false)} />
     </Navbar>
   );
 }

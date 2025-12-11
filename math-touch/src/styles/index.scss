@@ -4,20 +4,29 @@
     width: 10px;
   }
   
-  /* Track */
   ::-webkit-scrollbar-track {
     background: $white;
     opacity: 1;
   }
   
-  /* Handle */
   ::-webkit-scrollbar-thumb {
     background: $darkBackColor;
     border-radius: 12px;
   }
   
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: $lightBackColor;
     border-radius: 12px;
+  }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }

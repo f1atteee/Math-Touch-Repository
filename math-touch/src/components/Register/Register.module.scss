@@ -6,7 +6,7 @@
 }
 
 .registerLink .btn-link {
-    color: $lightBackColor; // або інший колір, який ви хочете
+    color: $lightBackColor;
     text-decoration: none;
     font-size: 16px;
 
@@ -26,9 +26,9 @@
     text-align: center;
     display: inline-block;
     line-height: 1.5;
-    transition: background-color 0.3s ease; /* Додає плавний перехід для підсвічування */
+    transition: background-color 0.3s ease;
   
     &:hover {
-      background-color: lighten($lightBackColor, 20%); /* Підсвічує кнопку при наведенні мишкою */
+      background-color: lighten($lightBackColor, 20%);
     }
 }
